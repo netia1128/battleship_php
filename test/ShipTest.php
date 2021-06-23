@@ -1,4 +1,3 @@
-require '.:/home/netia/projects/battleship_pp/ship.php';
 <?php 
 
 require_once 'ship.php';
