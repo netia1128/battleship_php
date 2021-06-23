@@ -43,3 +43,5 @@ class ShipTest extends TestCase
     $this->assertTrue($result);
   }
 }
+
+// phpunit ShipTest
