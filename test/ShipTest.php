@@ -34,12 +34,15 @@ class ShipTest extends TestCase
 
   public function testShipSunk() {
     $ship = new Ship("Destroyer", 4);
+
+    $this->assertFalse($ship->is_sunk());
+
     $ship->hit();
     $ship->hit();
     $ship->hit();
     $ship->hit();
-    $result = $ship->is_sunk();
-    $this->assertTrue($result);
+
+    $this->assertTrue($ship->is_sunk());
   }
 }
 

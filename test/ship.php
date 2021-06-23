@@ -11,6 +11,8 @@ class Ship {
   public function is_sunk() {
     if($this->health == 0) {
       return true;
+    } else {
+      return false;
     }
   }
 

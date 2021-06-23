@@ -24,9 +24,8 @@ class CellTest extends TestCase {
 
   public function testCellEmptiness() {
     $cell = new Cell("A4");
-    $result = $cell->is_empty();
 
-    $this->assertTrue($result);
+    $this->assertTrue($cell->is_empty());
   }
 
   public function testCellPlaceShip() {
@@ -46,19 +45,38 @@ class CellTest extends TestCase {
 
   public function testCellIsFiredUpon() {
     $cell = new Cell("A4");
-    $result = $cell->is_fired_upon();
 
-    $this->assertFalse($result);
+    $this->assertFalse($cell->is_fired_upon());
+
+    $tug = new Ship("Tug Boat", 1);
+    $cell->place_ship($tug);
+    $cell->fire_upon();
+
+    $this->assertTrue($cell->is_fired_upon());
   }
 
   public function testCellFireUpon() {
-    $cell = new Cell("A4");
-    $cell->fire_upon();
-    $status = $cell->status;
+    $cell_1 = new Cell("A4");
+    $cell_1->fire_upon();
+    // $cell_1_status = $cell_1->status;
 
-    $this->assertTrue($status == "M");
+    $this->assertTrue($cell_1->status == "M");
 
-    $cell2 = new(Cell("B2"));
+    $cell_2 = new Cell("B2");
+    $tug = new Ship("Tug Boat", 1);
+    $cell_2->place_ship($tug);
+    $cell_2->fire_upon();
+
+    $this->assertTrue($tug->is_sunk());
+    $this->assertTrue($cell_2->status == 'X');
+
+    $cell_3 = new Cell("A2");
+    $sub = new Ship("Submarine", 2);
+    $cell_3->place_ship($sub);
+    $cell_3->fire_upon();
+
+    $this->assertFalse($sub->is_sunk());
+    $this->assertTrue($cell_3->status == 'H');
   }
 }
 
