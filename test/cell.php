@@ -8,9 +8,11 @@ class Cell {
     $this->ship = null;
   }
 
-//   def empty?
-//     @status == "."
-//   end
+  public function is_empty() {
+    if($this->status == ".") {
+      return true;
+    }
+  }
 
 //   def place_ship(ship)
 //     @status = 'S'

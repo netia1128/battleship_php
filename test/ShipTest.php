@@ -38,7 +38,7 @@ class ShipTest extends TestCase
     $ship->hit();
     $ship->hit();
     $ship->hit();
-    $result = $ship->sunk();
+    $result = $ship->is_sunk();
     $this->assertTrue($result);
   }
 }

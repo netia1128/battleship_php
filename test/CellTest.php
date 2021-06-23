@@ -18,6 +18,12 @@ class CellTest extends TestCase {
     $this->assertTrue($status == $expected_status);
     $this->assertTrue($ship== $expected_ship);
   }
+
+  public function testCellEmptiness() {
+    $cell = new Cell("A4");
+    $result = $cell->is_empty();
+    $this->assertTrue($result);
+  }
 }
 
 // phpunit ShipTest
