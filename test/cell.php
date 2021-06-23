@@ -19,24 +19,28 @@ class Cell {
     $this->ship = $ship;
   }
 
-//   def fired_upon?
-//     @status == "X" || @status == "M" || @status == "H"
-//   end
+  public function is_fired_upon() {
+    if($this->status == "X" || $this->status == "M" || $this->status == "H") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-//   def fire_upon
-//     if self.fired_upon?
-//       return false
-//     end
-//     if @status == "."
-//       @status = "M"
-//     elsif @status == "S" && @ship.health > 1
-//       @ship.hit
-//       @status = "H"
-//     else
-//       @ship.hit
-//       @status = "X"
-//     end
-//   end
+  public function fire_upon() {
+    if($this->is_fired_upon() == true) {
+      return false;
+    }
+    if($this->status == ".") {
+      $this->status = "M";
+    } elseif($this->status == "S" && $ship->health > 1) {
+      $ship->hit;
+      $this->status = "H";
+    } else {
+      $ship->hit;
+      $this->status = "X";
+    }
+  }
 
 //   def render(show_ships = false)
 //     if show_ships == false && @status == "S"

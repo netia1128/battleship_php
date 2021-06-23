@@ -37,11 +37,29 @@ class CellTest extends TestCase {
     $ship = $cell->ship;
     $status = $cell->status;
     $expected_status = "S";
+
     $expected_ship = $tug;
 
     $this->assertTrue($status == $expected_status);
     $this->assertTrue($ship== $expected_ship);
   }
+
+  public function testCellIsFiredUpon() {
+    $cell = new Cell("A4");
+    $result = $cell->is_fired_upon();
+
+    $this->assertFalse($result);
+  }
+
+  public function testCellFireUpon() {
+    $cell = new Cell("A4");
+    $cell->fire_upon();
+    $status = $cell->status;
+
+    $this->assertTrue($status == "M");
+
+    $cell2 = new(Cell("B2"));
+  }
 }
 
-// phpunit ShipTest
+// phpunit CellTest
