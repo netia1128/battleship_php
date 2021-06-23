@@ -14,10 +14,10 @@ class Cell {
     }
   }
 
-//   def place_ship(ship)
-//     @status = 'S'
-//     @ship = ship
-//   end
+  public function place_ship($ship) {
+    $this->status = 'S';
+    $this->ship = $ship;
+  }
 
 //   def fired_upon?
 //     @status == "X" || @status == "M" || @status == "H"
