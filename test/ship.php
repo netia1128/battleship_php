@@ -8,9 +8,11 @@ class Ship {
     $this->health = $length;
   }
 
-  public function sunk() {
+  public function is_sunk() {
     if($this->health == 0) {
       return true;
+    } else {
+      return false;
     }
   }
 

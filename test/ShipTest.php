@@ -1,4 +1,3 @@
-require '.:/home/netia/projects/battleship_pp/ship.php';
 <?php 
 
 require_once 'ship.php';
@@ -35,12 +34,15 @@ class ShipTest extends TestCase
 
   public function testShipSunk() {
     $ship = new Ship("Destroyer", 4);
+
+    $this->assertFalse($ship->is_sunk());
+
     $ship->hit();
     $ship->hit();
     $ship->hit();
     $ship->hit();
-    $result = $ship->sunk();
-    $this->assertTrue($result);
+
+    $this->assertTrue($ship->is_sunk());
   }
 }
 
