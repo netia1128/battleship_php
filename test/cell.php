@@ -43,15 +43,14 @@ class Cell {
     }
   }
 
-//   def render(show_ships = false)
-//     if show_ships == false && @status == "S"
-//       "."
-//     elsif !@ship.nil? && @ship.sunk?
-//       "X"
-//     else
-//       @status
-//     end
-//   end
-// end
+  public function render($show_ships = false) {
+    if($show_ships == false && $this->status == "S") {
+      return ".";
+    } elseif($this->ship != null && $this->ship->is_sunk()) {
+      return "X";
+    } else {
+      return $this->status;
+    }
+  }
 }
 ?>
