@@ -46,6 +46,19 @@ class EvaluatorTest extends TestCase
 
     $this->assertTrue($evaluator->no_duplicate_coordinates($coordinates) == null);
   }
+
+  public function testCoordinatesEmpty() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+    $coordinates = ['A1', 'A2'];
+    
+    $this->assertTrue($evaluator->coordinates_empty($coordinates, $evaluator->cells));
+    
+    $ship = new Ship("Submarine", 2);
+    $evaluator->cells['A1']->place_ship($ship);
+
+    $this->assertTrue($evaluator->coordinates_empty($coordinates, $evaluator->cells) == null);
+  }
 }
 
 // phpunit ShipTest

@@ -49,11 +49,19 @@ class Evaluator {
   //   end.sort
   // end
 
-  // def coordinates_empty?(coordinates, cells)
-  //   coordinates.all? do |coordinate|
-  //     cells[coordinate.to_sym].empty?
-  //   end
-  // end
+  public function coordinates_empty($coordinates, $cells) {
+    $empty_coordinates = 0;
+
+    foreach($coordinates as $coordinate) {
+      if($cells[$coordinate]->ship == null) {
+        $empty_coordinates += 1;
+      }
+    }
+
+    if($empty_coordinates == count($coordinates)) {
+      return true;
+    }
+  }
 
   // def is_horizontal?(coordinates)
   //   user_coordinate_letters(coordinates).uniq.count == 1
