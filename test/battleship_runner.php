@@ -1,9 +1,9 @@
 <?php 
 
-require_once 'ship.php';
+require_once 'board.php';
 
-$ship = new Ship("Destroyer", 4);
+$board = new Board(2);
 
-$ship->hit();
+$board->make_board_array();
 
 ?>

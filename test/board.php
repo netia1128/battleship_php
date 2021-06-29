@@ -34,19 +34,14 @@ class Board {
 
   public function make_board_array() {
     $board_array = array();
-    $letters = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
-    // how to create a range as shown below
-    // $letters = ("A" .. "Z")->__to_array();
-    //   letters = ("A" .. "Z").to_a
+    $letters = range('A', 'Z');
     $letter_count = 0;
     $number_count = 1;
-    echo $this->board_dimension;
     $total_coordinates = $this->board_dimension ** 2;
 
-    for($letter_count = 0; $letter_count <= $this->board_dimension; $letter_count++) {
+    for($letter_count = 0; $letter_count < $this->board_dimension; $letter_count++) {
       for($num_count = 1; $num_count <= $this->board_dimension; $num_count++) {
-        // How to add to an array as shown below
-        // $board_array << $letters[$letter_count] + $num_count;
+        array_push($board_array, $letters[$letter_count] . strval($num_count));
       }
     }
 
