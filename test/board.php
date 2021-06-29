@@ -3,34 +3,20 @@ require_relative 'cell' #added -->
 
 
 <?php
+require_once 'cell.php';
 require_once 'evaluator.php';
 
 class Board {
 
   public function __construct($board_dimension) {
     $this->board_dimension = $board_dimension;
-    // $this->cells = $this->make_board_hash;
+    $this->cells = $this->make_board_array();
     $this->evaluator = new Evaluator(array("A1", "A2"));
   }
   //   @cells = make_board_hash
   //   @evaluator = Evaluator.new(@cells)
   // end
 
-
-
-  // public function make_board_hash() {
-  //   $board_array = $this->make_board_array;
-  //   $board_hash = array();
-  //   foreach($board_array as $coordinate) {
-  //     // find out how to add new KV pair to associative array
-  //     // find out how to convert a string to a symbol, if even possible
-  //     $board_hash($coordinate=>new Cell(coordinate);
-  //       //   board_array.each do |coordinate|
-  //       //     board_hash[coordinate.to_sym] = Cell.new(coordinate)
-  //       //   end
-  //   }
-  //   return $board_hash
-  // }
 
   public function make_board_array() {
     $board_array = array();
@@ -41,7 +27,8 @@ class Board {
 
     for($letter_count = 0; $letter_count < $this->board_dimension; $letter_count++) {
       for($num_count = 1; $num_count <= $this->board_dimension; $num_count++) {
-        array_push($board_array, $letters[$letter_count] . strval($num_count));
+        $coordinate = $letters[$letter_count] . strval($num_count);
+        $board_array[$coordinate] = new Cell($coordinate);
       }
     }
 

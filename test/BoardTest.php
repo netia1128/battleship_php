@@ -12,20 +12,18 @@ class BoardTest extends TestCase
     $board = new Board(4);
     
     $this->assertTrue($board->board_dimension == 4);
+    $this->assertTrue(count($board->cells) == 16);
   }
 
   public function testMakeBoardArray() {
     $board1 = new Board(2);
-    $board_array1 = $board1->make_board_array();
-    $expected_board_array1 = array('A1', 'A2', 'B1', 'B2');
+    $board1_array = $board1->make_board_array();
+    $board1_array_keys = array_keys($board1_array);
+    $board1_cell1 = $board1_array['A1'];
+    $expected_board1_keys = array('A1', 'A2', 'B1', 'B2');
 
-    $this->assertTrue($board_array1 == $expected_board_array1);
-
-    $board2 = new Board(3);
-    $board_array2 = $board2->make_board_array();
-    $expected_board_array2 = array('A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3');
-
-    $this->assertTrue($board_array2 == $expected_board_array2);
+    $this->assertTrue($board1_array_keys == $expected_board1_keys);
+    $this->assertTrue(is_a($board1_cell1, 'Cell'));
   }
 
   // public function testIsValidPlacement() {
