@@ -1,8 +1,5 @@
-<!-- require_relative 'evaluator'
-require_relative 'cell' #added -->
-
-
 <?php
+
 require_once 'cell.php';
 require_once 'evaluator.php';
 
@@ -11,12 +8,8 @@ class Board {
   public function __construct($board_dimension) {
     $this->board_dimension = $board_dimension;
     $this->cells = $this->make_board_array();
-    $this->evaluator = new Evaluator(array("A1", "A2"));
+    $this->evaluator = new Evaluator($this->cells);
   }
-  //   @cells = make_board_hash
-  //   @evaluator = Evaluator.new(@cells)
-  // end
-
 
   public function make_board_array() {
     $board_array = array();
@@ -35,28 +28,11 @@ class Board {
     return $board_array;
   }
 
-  // def make_board_array
-  //   board_array = []
-  //   letter_count = 0
-  //   number_count = 1
-  //   # require 'pry'; binding.prys
-  //   total_coordinates = @board_dimension * @board_dimension
-
-  //   @board_dimension.times do
-  //     @board_dimension.times do
-  //       board_array << letters[letter_count] + (number_count).to_s
-  //       number_count += 1
-  //     end
-  //     letter_count += 1
-  //     number_count = 1
-  //   end
-  //   board_array
-  // end
-
   public function is_valid_placement($coordinates, $ship) {
     $valid_placement = $this->evaluator->coordinates_match_ship_length($coordinates, $ship);
     return $valid_placement;
   }
+  
   // def valid_placement?(coordinates, ship)
   //   @evaluator.coordinates_match_ship_length?(coordinates, ship) &&
   //   @evaluator.coordinates_empty?(coordinates, @cells) &&

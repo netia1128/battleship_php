@@ -26,13 +26,13 @@ class BoardTest extends TestCase
     $this->assertTrue(is_a($board1_cell1, 'Cell'));
   }
 
-  // public function testIsValidPlacement() {
-  //   $board = new Board(4);
-  //   $coordinates = array("A1", "A2");
-  //   $ship = new Ship("Submarine", 2);
+  public function testIsValidPlacement() {
+    $board = new Board(4);
+    $coordinates = array("A1", "A2");
+    $ship = new Ship("Submarine", 2);
 
-  //   $this->assertTrue($board->is_valid_placement($coordinates, $ship));
-  // }
+    $this->assertTrue($board->is_valid_placement($coordinates, $ship));
+  }
 }
 
 // phpunit ShipTest

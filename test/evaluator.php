@@ -20,7 +20,9 @@ class Evaluator {
   // end
 
   public function coordinates_match_ship_length($coordinates, $ship) {
-    $coordinates->count == $ship->length;
+    if(count($coordinates) == $ship->length) {
+      return true;
+    }
   }
 
   // def no_duplicate_coordinates?(coordinates)
