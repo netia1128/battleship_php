@@ -24,14 +24,27 @@ class EvaluatorTest extends TestCase
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
     $ship = new Ship("Submarine", 2);
-    $coordinates = ['A1', 'A2'];
+    $coordinates1 = ['A1', 'A2'];
 
-    $this->assertTrue($evaluator->coordinates_match_ship_length($coordinates, $ship));
+    $this->assertTrue($evaluator->coordinates_match_ship_length($coordinates1, $ship));
 
     $ship = new Ship("Destroyer", 4);
+    $coordinates2 = ['A1', 'A2'];
+
+    $this->assertTrue($evaluator->coordinates_match_ship_length($coordinates2, $ship) == null);
+  }
+
+  public function testNoDuplicateCoordinates() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+    $ship = new Ship("Submarine", 2);
     $coordinates = ['A1', 'A2'];
 
-    $this->assertTrue($evaluator->coordinates_match_ship_length($coordinates, $ship));
+    $this->assertTrue($evaluator->no_duplicate_coordinates($coordinates));
+
+    $coordinates = ['A1', 'A1'];
+
+    $this->assertTrue($evaluator->no_duplicate_coordinates($coordinates) == null);
   }
 }
 

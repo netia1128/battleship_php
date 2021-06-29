@@ -25,9 +25,11 @@ class Evaluator {
     }
   }
 
-  // def no_duplicate_coordinates?(coordinates)
-  //   coordinates.uniq.count == coordinates.length
-  // end
+  public function no_duplicate_coordinates($coordinates) {
+    if(count(array_unique($coordinates)) == count($coordinates)) {
+      return true;
+    }
+  }
 
   // def split_user_coordinates(coordinates)
   //   coordinates.map do |coordinate|
