@@ -91,6 +91,23 @@ class EvaluatorTest extends TestCase
     
     $this->assertTrue($expected_letter_coordinates2 == $letter_coordinates2);
   }
+
+  public function testUserCoordinateNumbers() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+
+    $coordinates1 = ['A1', 'A2'];
+    $expected_number_coordinates1 = [1, 2];
+    $number_coordinates1 = $evaluator->user_coordinate_numbers($coordinates1);
+    
+    $this->assertTrue($expected_number_coordinates1 == $number_coordinates1);
+    
+    $coordinates2 = ['A1', 'B1'];
+    $expected_number_coordinates2 = [1, 1];
+    $number_coordinates2 = $evaluator->user_coordinate_numbers($coordinates2);
+    
+    $this->assertTrue($expected_number_coordinates2 == $number_coordinates2);
+  }
 }
 
 // phpunit ShipTest

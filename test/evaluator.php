@@ -53,11 +53,15 @@ class Evaluator {
   //   }
   // }
 
-  // def user_coordinate_numbers(coordinates)
-  //   split_user_coordinates(coordinates).map do |sub_arr|
-  //     sub_arr[1].to_i
-  //   end.sort
-  // end
+  public function user_coordinate_numbers($coordinates) {
+    $coordinate_numbers = [];
+
+    foreach($coordinates as $coordinate) {
+      array_push($coordinate_numbers, str_split($coordinate)[1]);
+    }
+
+    return $coordinate_numbers;
+  }
 
   public function user_coordinate_letters($coordinates) {
     $coordinate_letters = [];
