@@ -64,14 +64,25 @@ class BoardTest extends TestCase
     $board = new Board(4);
     $ship = new Ship("Submarine", 2);
     $coordinates1 = ['A1', 'A2'];
-    $coordinates2 = ['A1', 'Z1'];
+    $coordinates2 = ['B1', 'Z1'];
 
     $board->place($coordinates1, $ship);
 
     $this->assertTrue($board->cells['A1']->ship == $ship);
     $this->assertTrue($board->cells['A2']->ship == $ship);
-
+    
+    $this->assertTrue($board->cells['B1']->ship == null);
     $this->assertFalse($board->place($coordinates2, $ship));
+  }
+
+  public function testTopRow() {
+    $board1 = new Board(2);
+    $board2 = new Board(4);
+    $board3 = new Board(7);
+
+    $this->assertTrue($board1->top_row() == [1, 2]);
+    $this->assertTrue($board2->top_row() == [1, 2, 3, 4]);
+    $this->assertTrue($board3->top_row() == [1, 2, 3, 4, 5, 6, 7]);
   }
 }
 

@@ -51,20 +51,6 @@ class Board {
     }
   }
 
-  // def place(coordinates, ship)
-  //   coordinates.each do |coordinate|
-  //     if !valid_coordinate?(coordinate)
-  //       return false
-  //     end
-  //   end
-  //   if !valid_placement?(coordinates, ship)
-  //     return false
-  //   end
-  //   coordinates.each do |coordinate|
-  //     @cells[coordinate.to_sym].place_ship(ship)
-  //   end
-  // end
-
   public function is_valid_coordinate($coordinate) {
     if($coordinate == null) {
       return false;
@@ -74,14 +60,6 @@ class Board {
       return false;
     }
   }
-
-  // def valid_coordinate?(coordinate)
-  //   if coordinate == nil
-  //     return false
-  //   else
-  //     @cells.keys.to_a.include? coordinate.to_sym
-  //   end
-  // end
 
   // def render(show_ships = false)
   //   string = top_row
@@ -97,6 +75,9 @@ class Board {
   //   string
   // end
 
+  public function top_row() {
+    return range(1, $this->board_dimension);
+  }
   // def top_row
   //   return "  #{board_numbers.join(' ')} \n"
   // end
