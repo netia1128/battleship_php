@@ -113,5 +113,3 @@ class CellTest extends TestCase {
     $this->assertTrue($cell_3->status == 'H');
   }
 }
-
-// phpunit CellTest
