@@ -5,7 +5,7 @@ require_once 'ship.php';
 class ShipGenerator {
 
   public function __construct() {
-    $this->ships = [];
+    $this->make_ships();
   }
 
   public function make_ships() {
@@ -13,6 +13,7 @@ class ShipGenerator {
     $submarine = new Ship("Submarine", 2);
     $tug_boat = new Ship("Tug Boat", 1);
     $this->ships = [$cruiser, $submarine, $tug_boat];
+    return $this->ships;
   }
 
   // def make_ships
