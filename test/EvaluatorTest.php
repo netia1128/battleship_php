@@ -60,21 +60,6 @@ class EvaluatorTest extends TestCase
     $this->assertTrue($evaluator->coordinates_empty($coordinates, $evaluator->cells) == null);
   }
 
-  // public function testSplitUserCoordinates() {
-  //   $board = new Board(2);
-  //   $evaluator = new Evaluator($board->cells);
-  //   $coordinates = ['A1', 'A2'];
-  //   $expected_split_coordinates = ['A', '1', 'A', '2'];
-  //   $split_coordinates = $evaluator->split_user_coordinates($coordinates);
-    
-  //   $this->assertTrue($evaluator->split_user_coordinates($coordinates) == $expected_split_coordinates);
-    
-  //   // $ship = new Ship("Submarine", 2);
-  //   // $evaluator->cells['A1']->place_ship($ship);
-
-  //   // $this->assertTrue($evaluator->coordinates_empty($coordinates, $evaluator->cells) == null);
-  // }
-
   public function testUserCoordinateLetters() {
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
@@ -153,5 +138,3 @@ class EvaluatorTest extends TestCase
     $this->assertTrue($evaluator->is_consecutive($coordinates3, $ship));
   }
 }
-
-// phpunit ShipTest

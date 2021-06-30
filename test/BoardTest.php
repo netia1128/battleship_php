@@ -28,10 +28,28 @@ class BoardTest extends TestCase
 
   public function testIsValidPlacement() {
     $board = new Board(4);
-    $coordinates = array("A1", "A2");
     $ship = new Ship("Submarine", 2);
+    
+    // valid placement
+    $coordinates1 = array("A1", "A2");
+    $this->assertTrue($board->is_valid_placement($coordinates1, $ship));
 
-    $this->assertTrue($board->is_valid_placement($coordinates, $ship));
+    // invalid placement - non-consecutive cellscoordinates
+    $coordinates2 = array("A1", "A3");
+    $this->assertTrue($board->is_valid_placement($coordinates2, $ship) == null);
+
+    // invalid placement - too-many coordinates
+    $coordinates3 = array("A1", "A3", "A2");
+    $this->assertTrue($board->is_valid_placement($coordinates3, $ship) == null);
+
+    // invalid placement - duplicate coordinates
+    $coordinates4 = array("A1", "A1");
+    $this->assertTrue($board->is_valid_placement($coordinates4, $ship) == null);
+
+    // invalid placement - coordinates not empty
+    $coordinates4 = array("A1", "A2");
+    $board->cells['A1']->place_ship($ship);
+    $this->assertTrue($board->is_valid_placement($coordinates4, $ship) == null);
   }
 }
 

@@ -29,8 +29,12 @@ class Board {
   }
 
   public function is_valid_placement($coordinates, $ship) {
-    $valid_placement = $this->evaluator->coordinates_match_ship_length($coordinates, $ship);
-    return $valid_placement;
+    if($this->evaluator->coordinates_match_ship_length($coordinates, $ship) == true &&
+       $this->evaluator->coordinates_empty($coordinates, $this->cells) == true &&
+       $this->evaluator->no_duplicate_coordinates($coordinates, $ship) == true &&
+       $this->evaluator->is_consecutive($coordinates, $ship) == true) {
+         return true;
+       }
   }
   
   // def valid_placement?(coordinates, ship)
