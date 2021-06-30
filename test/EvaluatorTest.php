@@ -108,6 +108,19 @@ class EvaluatorTest extends TestCase
     
     $this->assertTrue($expected_number_coordinates2 == $number_coordinates2);
   }
+
+  public function testIsHorizontal() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+
+    $coordinates1 = ['A1', 'A2'];
+    
+    $this->assertTrue($evaluator->is_horizontal($coordinates1));
+    
+    $coordinates2 = ['A1', 'B1'];
+    
+    $this->assertTrue($evaluator->is_horizontal($coordinates2) == null);
+  }
 }
 
 // phpunit ShipTest

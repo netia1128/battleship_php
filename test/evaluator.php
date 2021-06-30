@@ -31,28 +31,6 @@ class Evaluator {
     }
   }
 
-  public function split_user_coordinates($coordinates) {
-    $split_coordinates = [];
-
-    foreach($coordinates as $coordinate) {
-      // echo str_split($coordinate);
-      array_push($split_coordinates, str_split($coordinate)[0]);
-    }
-    var_dump(array_merge($split_coordinates));
-    // foreach($splist_coordinates as $character) {
-    //   echo "$chsaracter <br>";
-    // }
-    
-
-    return $split_coordinates;
-  }
-
-  // public function extract_coordinate_letters($coordinates) {
-  //   foreach($coordinates as $coordinate) {
-  //     explode('', $coordinate)
-  //   }
-  // }
-
   public function user_coordinate_numbers($coordinates) {
     $coordinate_numbers = [];
 
@@ -87,9 +65,12 @@ class Evaluator {
     }
   }
 
-  // public function is_horizontal($coordinates) {
-  //   user_coordinate_letters($coordinates).uniq.count == 1
-  // }
+  public function is_horizontal($coordinates) {
+    $unique_letter_count = count(array_unique($this->user_coordinate_letters($coordinates)));
+    if($unique_letter_count == 1) {
+      return true;
+    }
+  }
 
   // def is_vertical?(coordinates)
   //   user_coordinate_numbers(coordinates).uniq.count == 1
