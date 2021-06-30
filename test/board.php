@@ -73,39 +73,22 @@ class Board {
         $string = ($string . $value->render($show_ships) . " ");
       }
     }
-    // if($show_ships == true) {
-    //   var_dump($string);
-    // }
     return $string;
   }
-
-  // def render(show_ships = false)
-  //   string = top_row
-  //   @cells.each do |key, value|
-  //     if key.to_s[1] == "1"
-  //       string += "#{key.to_s[0]} #{value.render(show_ships)} "
-  //     elsif key.to_s[1].to_i == @board_dimension
-  //       string += "#{value.render(show_ships)} \n"
-  //     else
-  //      string += "#{value.render(show_ships)} "
-  //     end
-  //   end
-  //   string
-  // end
 
   public function top_row() {
     $board_numbers = range(1, $this->board_dimension);
     return join(' ', $board_numbers);
   }
 
-  // def make_hit_cells_arr
-  //   hit_cells_arr = []
-  //   @cells.each do |key, value|
-  //       if @cells[key].render == "H"
-  //         hit_cells_arr << cells[key].coordinate
-  //     end
-  //   end
-  //   hit_cells_arr
-  // end
+  public function make_hit_cells_arr() {
+    $hit_cells_arr = [];
+    foreach($this->cells as $key => $value) {
+      if($value->render() == 'H') {
+        array_push($hit_cells_arr, $key);
+      }
+    }
+    return $hit_cells_arr;
+  }
 }
 ?>

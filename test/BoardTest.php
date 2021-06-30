@@ -112,4 +112,24 @@ class BoardTest extends TestCase
   $board->cells['A3']->fire_upon();
   $this->assertTrue($board->render() == "  1 2 3 4 \nA X X X M \nB . . . . \nC . . . . \nD . . . . \n");
   }
+
+  public function testMakeHitCellsArr() {
+    $board = new Board(4);
+    $cruiser = new Ship("Cruiser", 3);
+    $tug = new Ship("Tug Boat", 1);
+    $board->place(['A1', 'A2', 'A3'], $cruiser);
+    $board->place(['A4'], $tug);
+
+    // it 'returns an empty array if no ships have been hit without being sunk' do
+    $this->assertTrue($board->make_hit_cells_arr() == []);
+
+    //   it 'returns an empty array if the only ships hit have been sunk' do
+    $board->cells['A4']->fire_upon();
+    $this->assertTrue($board->make_hit_cells_arr() == []);
+
+    //   it 'returns an array of cells containing ships that have been hit but not sunk' do
+    $board->cells['A1']->fire_upon();
+    $board->cells['A2']->fire_upon();
+    $this->assertTrue($board->make_hit_cells_arr() == ['A1', 'A2']);
+  }
 }
