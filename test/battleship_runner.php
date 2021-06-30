@@ -1,9 +1,13 @@
 <?php 
 
-require_once 'ship.php';
+require_once 'board.php';
 
-$ship = new Ship("Destroyer", 4);
+$board = new Board(2);
 
-$ship->hit();
+$evaluator = new Evaluator($board->cells);
+
+$coordinates = ['A1', 'B2'];
+
+$evaluator->user_coordinate_letters($coordinates)
 
 ?>
