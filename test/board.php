@@ -37,12 +37,19 @@ class Board {
        }
   }
   
-  // def valid_placement?(coordinates, ship)
-  //   @evaluator.coordinates_match_ship_length?(coordinates, ship) &&
-  //   @evaluator.coordinates_empty?(coordinates, @cells) &&
-  //   @evaluator.no_duplicate_coordinates?(coordinates) &&
-  //   @evaluator.is_consecutive?(coordinates, ship)
-  // end
+  public function place($coordinates, $ship) {
+    foreach($coordinates as $coordinate) {
+      if($this->is_valid_coordinate($coordinate) == false) {
+        return false;
+      }
+    }
+    if($this->is_valid_placement($coordinates, $ship) == false) {
+      return false;
+    }
+    foreach($coordinates as $coordinate) {
+      $this->cells[$coordinate]->place_ship($ship);
+    }
+  }
 
   // def place(coordinates, ship)
   //   coordinates.each do |coordinate|
@@ -57,6 +64,16 @@ class Board {
   //     @cells[coordinate.to_sym].place_ship(ship)
   //   end
   // end
+
+  public function is_valid_coordinate($coordinate) {
+    if($coordinate == null) {
+      return false;
+    } elseif(in_array($coordinate, array_keys($this->cells))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // def valid_coordinate?(coordinate)
   //   if coordinate == nil

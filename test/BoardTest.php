@@ -51,6 +51,14 @@ class BoardTest extends TestCase
     $board->cells['A1']->place_ship($ship);
     $this->assertTrue($board->is_valid_placement($coordinates4, $ship) == null);
   }
+
+  public function testIsValidCoordinate() {
+    $board = new Board(4);
+    $coordinate1 = 'A1';
+    $coordinate2 = 'Z1';
+
+    $this->assertTrue($board->is_valid_coordinate($coordinate1));
+  }
 }
 
 // phpunit ShipTest
