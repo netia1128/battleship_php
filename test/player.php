@@ -11,7 +11,8 @@ class Player {
     $this->board_dimension = $board_dimension;
     $this->board = new Board($board_dimension);
     $this->evaluator = new Evaluator($this->board->cells);
-    $this->ships = new ShipGenerator;
+    $ship_generator = new ShipGenerator;
+    $this->ships = $ship_generator->ships;
     $this->last_shot_coordinate = '';
   }
 //   def initialize(board_dimension)
