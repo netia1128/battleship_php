@@ -72,6 +72,13 @@ class Evaluator {
     }
   }
 
+  public function is_vertical($coordinates) {
+    $unique_number_count = count(array_unique($this->user_coordinate_numbers($coordinates)));
+    if($unique_number_count == 1) {
+      return true;
+    }
+  }
+
   // def is_vertical?(coordinates)
   //   user_coordinate_numbers(coordinates).uniq.count == 1
   // end
