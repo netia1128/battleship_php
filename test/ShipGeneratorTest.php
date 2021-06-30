@@ -13,4 +13,12 @@ class ShipGeneratorTest extends TestCase {
     
     $this->assertTrue($ship_generator->ships == []);
   }
+
+  public function testMakeShips() {
+    $ship_generator = new ShipGenerator;
+    $ship_generator->make_ships();
+    
+    $this->assertTrue(count($ship_generator->ships) == 3);
+    $this->assertTrue(is_a($ship_generator->ships[0], 'Ship'));
+  }
 }
