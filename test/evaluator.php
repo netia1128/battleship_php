@@ -9,15 +9,22 @@ class Evaluator {
     $this->cells = $cells;
   }
 
-  // public function is_consecutive($coordinates, $ship) {
-  //   if is_horizontal?(coordinates)
-  //     return ((user_coordinate_numbers(coordinates).last - user_coordinate_numbers(coordinates).first) + 1 == ship.length)
-  //   elsif is_vertical?(coordinates)
-  //     return ((user_coordinate_letters(coordinates).last.ord - user_coordinate_letters(coordinates).first.ord) + 1 == ship.length)
-  //   else
-  //     return false
-  //   end
-  // }
+  public function is_consecutive($coordinates, $ship) {
+    $coordinate_numbers = $this->user_coordinate_numbers($coordinates);
+    $coordinate_letters = $this->user_coordinate_letters($coordinates);
+
+    if($this->is_horizontal($coordinates) == true) {
+      if((end($coordinate_numbers) - reset($coordinate_numbers)) + 1 == $ship->length) {
+        return true;
+      }
+    } elseif($this->is_vertical($coordinates) == true) {
+      if((ord(end($coordinate_letters)) - ord(reset($coordinate_letters))) + 1 == $ship->length) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
 
   public function coordinates_match_ship_length($coordinates, $ship) {
     if(count($coordinates) == $ship->length) {
@@ -78,10 +85,6 @@ class Evaluator {
       return true;
     }
   }
-
-  // def is_vertical?(coordinates)
-  //   user_coordinate_numbers(coordinates).uniq.count == 1
-  // end
 
   // def is_horizontal_or_vertical?(coordinates)
   //   user_coordinate_letters(coordinates).uniq.count == 1 || user_coordinate_numbers(coordinates).uniq.count == 1

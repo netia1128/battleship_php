@@ -134,6 +134,24 @@ class EvaluatorTest extends TestCase
     
     $this->assertTrue($evaluator->is_vertical($coordinates2));
   }
+
+  public function testIsConsecutive() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+    $ship = new Ship("Submarine", 2);
+
+    $coordinates1 = ['A1', 'A2'];
+    
+    $this->assertTrue($evaluator->is_consecutive($coordinates1, $ship));
+    
+    $coordinates2 = ['A1', 'C1'];
+    
+    $this->assertTrue($evaluator->is_consecutive($coordinates2, $ship) == null);
+
+    $coordinates3 = ['A1', 'B1'];
+    
+    $this->assertTrue($evaluator->is_consecutive($coordinates3, $ship));
+  }
 }
 
 // phpunit ShipTest
