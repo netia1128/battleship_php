@@ -10,19 +10,16 @@ class Player {
   public function __construct($board_dimension) {
     $this->board_dimension = $board_dimension;
     $this->board = new Board($board_dimension);
+    $this->shots_available = array_keys($this->board->cells);
     $this->evaluator = new Evaluator($this->board->cells);
     $ship_generator = new ShipGenerator;
     $this->ships = $ship_generator->ships;
     $this->last_shot_coordinate = '';
   }
-//   def initialize(board_dimension)
-//     @board_dimension = board_dimension
-//     @board = Board.new(@board_dimension)
-//     @evaluator = Evaluator.new(@board.cells)
-//     @shots_available = @board.make_board_array
-//     @ships = ShipGenerator.new.make_ships
-//     @last_shot_coordinate = ''
-//   end
+
+  // public function attempt_auto_ship_placement($ship) {
+  //   $pivot_point = set_random_pivot_point();
+  // }
 
 //   def attempt_auto_ship_placement(ship)
 //     pivot_point = set_random_pivot_point
@@ -86,6 +83,12 @@ class Player {
 //     cells = @board.make_board_array
 //     cells.index(pivot_point)
 //   end
+
+public function set_random_pivot_point() {
+  $random_position = rand(0, count($this->shots_available));
+  $pivot_point = $this->shots_available[$random_position];
+  return $pivot_point;
+}
 
 //   def set_random_pivot_point
 //       pivot_point = @shots_available.sample

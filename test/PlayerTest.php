@@ -12,13 +12,21 @@ use PHPUnit\Framework\TestCase;
 class PlayerTest extends TestCase {
 
   public function testPlayerConstruct() {
-    $player = new Player(4);
+    $player = new Player(2);
     
-    $this->assertTrue($player->board_dimension == 4);
+    $this->assertTrue($player->board_dimension == 2);
     $this->assertTrue(is_a($player->board, 'Board'));
+    $this->assertTrue($player->shots_available == ['A1', 'A2', 'B1', 'B2']);
     $this->assertTrue(is_a($player->evaluator, 'Evaluator'));
     $this->assertTrue(count($player->ships) == 3);
     $this->assertTrue(is_a($player->ships[0], 'Ship'));
     $this->assertTrue($player->last_shot_coordinate == '');
+  }
+
+  public function testSetRandomPivotPoint() {
+    $player = new Player(2);
+    $pivot_point = $player->set_random_pivot_point();
+
+    $this->assertTrue(in_array($pivot_point, ['A1', 'A2', 'B1', 'B2']));
   }
 }
