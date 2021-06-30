@@ -76,11 +76,9 @@ class Board {
   // end
 
   public function top_row() {
-    return range(1, $this->board_dimension);
+    $board_numbers = range(1, $this->board_dimension);
+    return join(' ', $board_numbers);
   }
-  // def top_row
-  //   return "  #{board_numbers.join(' ')} \n"
-  // end
 
   // def board_numbers
   //   (1..@board_dimension).to_a

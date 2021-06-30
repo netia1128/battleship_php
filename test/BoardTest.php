@@ -80,9 +80,9 @@ class BoardTest extends TestCase
     $board2 = new Board(4);
     $board3 = new Board(7);
 
-    $this->assertTrue($board1->top_row() == [1, 2]);
-    $this->assertTrue($board2->top_row() == [1, 2, 3, 4]);
-    $this->assertTrue($board3->top_row() == [1, 2, 3, 4, 5, 6, 7]);
+    $this->assertTrue($board1->top_row() == '1 2');
+    $this->assertTrue($board2->top_row() == '1 2 3 4');
+    $this->assertTrue($board3->top_row() == '1 2 3 4 5 6 7');
   }
 }
 
