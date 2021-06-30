@@ -9,7 +9,7 @@ class Evaluator {
     $this->cells = $cells;
   }
 
-  // def is_consecutive?(coordinates, ship)
+  // public function is_consecutive($coordinates, $ship) {
   //   if is_horizontal?(coordinates)
   //     return ((user_coordinate_numbers(coordinates).last - user_coordinate_numbers(coordinates).first) + 1 == ship.length)
   //   elsif is_vertical?(coordinates)
@@ -17,7 +17,7 @@ class Evaluator {
   //   else
   //     return false
   //   end
-  // end
+  // }
 
   public function coordinates_match_ship_length($coordinates, $ship) {
     if(count($coordinates) == $ship->length) {
@@ -31,11 +31,27 @@ class Evaluator {
     }
   }
 
-  // def split_user_coordinates(coordinates)
-  //   coordinates.map do |coordinate|
-  //     coordinate.split("")
-  //   end
-  // end
+  public function split_user_coordinates($coordinates) {
+    $split_coordinates = [];
+
+    foreach($coordinates as $coordinate) {
+      // echo str_split($coordinate);
+      array_push($split_coordinates, str_split($coordinate)[0]);
+    }
+    var_dump(array_merge($split_coordinates));
+    // foreach($splist_coordinates as $character) {
+    //   echo "$chsaracter <br>";
+    // }
+    
+
+    return $split_coordinates;
+  }
+
+  // public function extract_coordinate_letters($coordinates) {
+  //   foreach($coordinates as $coordinate) {
+  //     explode('', $coordinate)
+  //   }
+  // }
 
   // def user_coordinate_numbers(coordinates)
   //   split_user_coordinates(coordinates).map do |sub_arr|
@@ -43,11 +59,15 @@ class Evaluator {
   //   end.sort
   // end
 
-  // def user_coordinate_letters(coordinates)
-  //   split_user_coordinates(coordinates).map do |sub_arr|
-  //     sub_arr[0]
-  //   end.sort
-  // end
+  public function user_coordinate_letters($coordinates) {
+    $coordinate_letters = [];
+
+    foreach($coordinates as $coordinate) {
+      array_push($coordinate_letters, str_split($coordinate)[0]);
+    }
+
+    return $coordinate_letters;
+  }
 
   public function coordinates_empty($coordinates, $cells) {
     $empty_coordinates = 0;
@@ -63,9 +83,9 @@ class Evaluator {
     }
   }
 
-  // def is_horizontal?(coordinates)
-  //   user_coordinate_letters(coordinates).uniq.count == 1
-  // end
+  // public function is_horizontal($coordinates) {
+  //   user_coordinate_letters($coordinates).uniq.count == 1
+  // }
 
   // def is_vertical?(coordinates)
   //   user_coordinate_numbers(coordinates).uniq.count == 1

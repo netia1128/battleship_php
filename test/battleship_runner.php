@@ -4,6 +4,10 @@ require_once 'board.php';
 
 $board = new Board(2);
 
-$board->make_board_array();
+$evaluator = new Evaluator($board->cells);
+
+$coordinates = ['A1', 'B2'];
+
+$evaluator->user_coordinate_letters($coordinates)
 
 ?>
