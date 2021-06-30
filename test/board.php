@@ -61,6 +61,24 @@ class Board {
     }
   }
 
+  public function render($show_ships = false) {
+    $string = "  " . $this->top_row() . " \n";
+    $cells = $this->cells;
+    foreach($cells as $key => $value){
+      if($key[1] == 1) {
+        $string = ($string . $key[0] . " " . $value->render($show_ships) . " ");
+      } elseif($key[1] == $this->board_dimension) {
+        $string = ($string . $value->render($show_ships) . " \n");
+      } else {
+        $string = ($string . $value->render($show_ships) . " ");
+      }
+    }
+    // if($show_ships == true) {
+    //   var_dump($string);
+    // }
+    return $string;
+  }
+
   // def render(show_ships = false)
   //   string = top_row
   //   @cells.each do |key, value|
@@ -79,10 +97,6 @@ class Board {
     $board_numbers = range(1, $this->board_dimension);
     return join(' ', $board_numbers);
   }
-
-  // def board_numbers
-  //   (1..@board_dimension).to_a
-  // end
 
   // def make_hit_cells_arr
   //   hit_cells_arr = []

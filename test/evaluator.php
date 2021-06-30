@@ -45,6 +45,8 @@ class Evaluator {
       array_push($coordinate_numbers, str_split($coordinate)[1]);
     }
 
+    sort($coordinate_numbers);
+
     return $coordinate_numbers;
   }
 
@@ -54,6 +56,8 @@ class Evaluator {
     foreach($coordinates as $coordinate) {
       array_push($coordinate_letters, str_split($coordinate)[0]);
     }
+
+    sort($coordinate_letters);
 
     return $coordinate_letters;
   }

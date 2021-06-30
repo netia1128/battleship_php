@@ -84,6 +84,32 @@ class BoardTest extends TestCase
     $this->assertTrue($board2->top_row() == '1 2 3 4');
     $this->assertTrue($board3->top_row() == '1 2 3 4 5 6 7');
   }
-}
 
-// phpunit ShipTest
+  public function testRender() {
+    $board = new Board(4);
+    $cruiser = new Ship("Crusier", 3);
+    $board->place(["A1", "A3", "A2"], $cruiser);
+
+    // it renders the starting board with all . s
+    $this->assertTrue($board->render() == "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n");
+
+  //   it 'renders the board with ships hidden if show_ships = false'
+    $this->assertTrue($board->render() == "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n");
+
+  //   it 'renders the board with ships shown if show_ships = true'
+    $this->assertTrue($board->render(true) == "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n");
+ 
+  //   it 'renders the board with M where applicable'
+    $board->cells['A4']->fire_upon();
+    $this->assertTrue($board->render() == "  1 2 3 4 \nA . . . M \nB . . . . \nC . . . . \nD . . . . \n");
+
+  //   it 'renders the board with H where applicable'
+    $board->cells['A1']->fire_upon();
+    $this->assertTrue($board->render() == "  1 2 3 4 \nA H . . M \nB . . . . \nC . . . . \nD . . . . \n");
+
+  //   it 'renders the board with X where applicable' do
+  $board->cells['A2']->fire_upon();
+  $board->cells['A3']->fire_upon();
+  $this->assertTrue($board->render() == "  1 2 3 4 \nA X X X M \nB . . . . \nC . . . . \nD . . . . \n");
+  }
+}
