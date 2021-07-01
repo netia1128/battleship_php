@@ -102,10 +102,6 @@ class Evaluator {
     return($pivot_point_index % $board_dimension == $board_dimension - 1);
   }
 
-  // def vertical_end_row?(pivot_point_index, board_dimension)
-  //   pivot_point_index % board_dimension == board_dimension - 1
-  // end
-
   public function isHorizontalStartRow($pivot_point_index, $board_dimension) {
     return($pivot_point_index / $board_dimension < 1);
   }
@@ -122,6 +118,12 @@ class Evaluator {
     }
     if($this->isHorizontalEndRow($pivot_point_index, $board_dimension)) {
       array_push($movement_array, $board_dimension);
+    }
+    if($this->isVerticalStartRow($pivot_point_index, $board_dimension)) {
+      array_push($movement_array, -1);
+    }
+    if($this->isVerticalEndRow($pivot_point_index, $board_dimension)) {
+      array_push($movement_array, 1);
     }
 
     return $movement_array;

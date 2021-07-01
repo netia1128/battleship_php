@@ -176,5 +176,8 @@ class EvaluatorTest extends TestCase
 
     $this->assertTrue($evaluator->createMovementArray(1, 4) == [-4]);
     $this->assertTrue($evaluator->createMovementArray(14, 4) == [4]);
+    $this->assertTrue($evaluator->createMovementArray(4, 4) == [-1]);
+    $this->assertTrue($evaluator->createMovementArray(7, 4) == [1]);
+    $this->assertTrue($evaluator->createMovementArray(3, 4) == [-4, 1]);
   }
 }
