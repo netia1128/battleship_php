@@ -145,4 +145,19 @@ class EvaluatorTest extends TestCase
     $this->assertTrue($evaluator->isHorizontalStartRow(0, 2));
     $this->assertFalse($evaluator->isHorizontalStartRow(2, 2));
   }
+
+  public function testIsHorizontalEndRow() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+
+    $this->assertTrue($evaluator->isHorizontalEndRow(2, 2));
+    $this->assertFalse($evaluator->isHorizontalEndRow(0, 2));
+  }
+
+  public function testCreateMovementArray() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+
+    $this->assertTrue($evaluator->createMovementArray(1, 2) == [-2]);
+  }
 }
