@@ -28,9 +28,8 @@ class Player {
       $proposed_coordinate_index = $pivot_point_index;
       $wip_array = [$proposed_coordinate];
       while(count($wip_array) != $ship->length) {
-
-        // proposed_coordinate_index = update_proposed_coordinate_index(proposed_coordinate_index, direction)
-        //         proposed_coordinate = update_proposed_coordinate(proposed_coordinate_index)
+        $proposed_coordinate_index = $this->updateProposedCoordinateIndex($proposed_coordinate_index, $direction);
+        $proposed_coordinate = $this->updateProposedCoordinate($proposed_coordinate_index);
         //         wip_array << proposed_coordinate
       }
     }
@@ -136,6 +135,11 @@ public function setRandomPivotPoint() {
 
     public function updateProposedCoordinateIndex($proposed_coordinate_index, $direction) {
       return($proposed_coordinate_index += $direction);
+    }
+
+    public function updateProposedCoordinate($proposed_coordinate_index) {
+      $cells = $this->board->cells;
+      return(array_keys($cells)[$proposed_coordinate_index]);
     }
 
 //   def update_proposed_coordinate(proposed_coordinate_index)

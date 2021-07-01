@@ -55,4 +55,11 @@ class PlayerTest extends TestCase {
     
     $this->assertTrue($player->updateProposedCoordinateIndex(4, -1) == 3);
   }
+
+  public function testUpdateProposedCoordinate() {
+    $player = new Player(4);
+    
+    $this->assertTrue($player->updateProposedCoordinate(0) == 'A1');
+    $this->assertTrue($player->updateProposedCoordinate(4) == 'B1');
+  }
 }
