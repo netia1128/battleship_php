@@ -17,9 +17,11 @@ class Player {
     $this->last_shot_coordinate = '';
   }
 
-  // public function attempt_auto_ship_placement($ship) {
-  //   $pivot_point = set_random_pivot_point();
-  // }
+  // public function attemptAutoShipPlacement($ship) {
+  //   $pivot_point = setRandomPivotPoint();
+  //   $pivot_point_index = setPivotPointIndex($pivot_point);
+  //   $movement_array = $this->evaluator->createMovementArray($pivot_point_index, $this-board_dimension)
+  }
 
 //   def attempt_auto_ship_placement(ship)
 //     pivot_point = set_random_pivot_point
@@ -83,11 +85,6 @@ public function setPivotPointIndex($pivot_point) {
   $cells = $this->board->cells;
   return array_search($pivot_point, array_keys($cells));
 }
-
-//   def set_pivot_point_index(pivot_point)
-//     cells = @board.make_board_array
-//     cells.index(pivot_point)
-//   end
 
 public function setRandomPivotPoint() {
   $pivot_point = $this->shots_available[array_rand($this->shots_available)];

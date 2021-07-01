@@ -35,4 +35,10 @@ class PlayerTest extends TestCase {
 
     $this->assertTrue($player->setPivotPointIndex('A2') == 1);
   }
+
+  public function testCreateMovementArray() {
+    $player = new Player(2);
+
+    $this->assertTrue($player->setPivotPointIndex('A2') == 1);
+  }
 }

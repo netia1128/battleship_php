@@ -102,6 +102,10 @@ class Evaluator {
   //   pivot_point_index % board_dimension == board_dimension - 1
   // end
 
+  public function isHorizontalStartRow($pivot_point_index, $board_dimension) {
+    return($pivot_point_index / $board_dimension < 1);
+  }
+
   // def horizontal_start_row?(pivot_point_index, board_dimension)
   //   pivot_point_index / board_dimension < 1
   // end
@@ -109,6 +113,13 @@ class Evaluator {
   // def horizontal_end_row?(pivot_point_index, board_dimension)
   //   pivot_point_index / board_dimension == board_dimension - 1
   // end
+
+  public function createMovementArray($pivot_point_index, $board_dimension) {
+    $movement_array = [];
+    if(isHorizontalStartRow($pivot_point_index, $board_dimension)) {
+      $movement_array += ($board_dimension * -1);
+    }
+  }
 
   // def create_movement_array(pivot_point_index, board_dimension)
   //   movement_array = []

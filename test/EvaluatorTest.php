@@ -137,4 +137,12 @@ class EvaluatorTest extends TestCase
     
     $this->assertTrue($evaluator->is_consecutive($coordinates3, $ship));
   }
+
+  public function testIsHorizontalStartRow() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+
+    $this->assertTrue($evaluator->isHorizontalStartRow(0, 2));
+    $this->assertFalse($evaluator->isHorizontalStartRow(2, 2));
+  }
 }
