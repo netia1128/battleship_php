@@ -79,24 +79,23 @@ class Player {
 //     movement_array.sample
 //   end
 
+public function setPivotPointIndex($pivot_point) {
+  $cells = $this->board->cells;
+  return array_search($pivot_point, array_keys($cells));
+}
+
 //   def set_pivot_point_index(pivot_point)
 //     cells = @board.make_board_array
 //     cells.index(pivot_point)
 //   end
 
-public function set_random_pivot_point() {
-  $random_position = rand(0, count($this->shots_available));
-  $pivot_point = $this->shots_available[$random_position];
+public function setRandomPivotPoint() {
+  $pivot_point = $this->shots_available[array_rand($this->shots_available)];
+  while($this->evaluator->coordinates_empty([$pivot_point], $this->board->cells) == false) {
+    $pivot_point = $this->shots_available[array_rand($this->shots_available)];
+  }
   return $pivot_point;
 }
-
-//   def set_random_pivot_point
-//       pivot_point = @shots_available.sample
-//     until @evaluator.coordinates_empty?([pivot_point], @board.cells)
-//       pivot_point = @shots_available.sample
-//     end
-//     pivot_point
-//   end
 
 //   def smart_shot(hit_cells_arr)
 //     cells = @board.make_board_array

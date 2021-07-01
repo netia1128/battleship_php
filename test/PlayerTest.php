@@ -25,8 +25,14 @@ class PlayerTest extends TestCase {
 
   public function testSetRandomPivotPoint() {
     $player = new Player(2);
-    $pivot_point = $player->set_random_pivot_point();
+    $pivot_point = $player->setRandomPivotPoint();
 
     $this->assertTrue(in_array($pivot_point, ['A1', 'A2', 'B1', 'B2']));
+  }
+
+  public function testSetPivotPointIndex() {
+    $player = new Player(2);
+
+    $this->assertTrue($player->setPivotPointIndex('A2') == 1);
   }
 }
