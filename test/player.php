@@ -73,25 +73,11 @@ public function fireUpon($shot_coordinate) {
   }
 }
 
-//   def fire_upon(shot_coordinate)
-//     if @board.valid_coordinate?(shot_coordinate)
-//       if !@board.cells[shot_coordinate.to_sym].fired_upon?
-//         @board.cells[shot_coordinate.to_sym].fire_upon
-//       else
-//         return false
-//       end
-//     else
-//       return false
-//     end
-//   end
-
-// public function randomShot() {
-//   $this->last_shot_cooridinate = $this->shots_available[array_rand($this->shots_available)];
-
-//     @last_shot_coordinate = @shots_available.sample
-//     fire_upon(@last_shot_coordinate)
-//     @shots_available.delete @last_shot_coordinate
-// }
+public function randomShot() {
+  $this->last_shot_cooridinate = $this->shots_available[array_rand($this->shots_available)];
+  $this->fireUpon($this->last_shot_coordinate);
+  unset($this->shots_available[array_search($this->last_shot_coordinate, $this->shots_available)]);
+}
 
 public function setDirection($movement_array) {
   $movement_array[array_rand($movement_array)];

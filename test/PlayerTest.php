@@ -70,7 +70,6 @@ class PlayerTest extends TestCase {
     $player = new Player(2);
 
     $cell_status = $player->board->cells['A1']->status;
-
     $this->assertTrue($cell_status === '.');
 
     $player->fireUpon('A1');
@@ -79,5 +78,15 @@ class PlayerTest extends TestCase {
 
     $this->assertTrue($cell_status === 'M');
     $this->assertFalse($player->fireUpon('A1'));
+  }
+
+  public function testRandomShot() {
+    $player = new Player(1);
+
+    $this->assertTrue($player->shots_available === ['A1']);
+
+    $player->randomShot();
+
+    $this->assertTrue($player->shots_available === []);
   }
 }
