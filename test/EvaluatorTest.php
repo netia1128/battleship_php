@@ -150,14 +150,23 @@ class EvaluatorTest extends TestCase
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
 
-    $this->assertTrue($evaluator->isHorizontalEndRow(2, 2));
+    $this->assertTrue($evaluator->isHorizontalEndRow(14, 4));
     $this->assertFalse($evaluator->isHorizontalEndRow(0, 2));
   }
 
-  public function testCreateMovementArray() {
+  public function testIsVerticalStartRow() {
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
 
-    $this->assertTrue($evaluator->createMovementArray(1, 2) == [-2]);
+    $this->assertTrue($evaluator->isVerticalStartRow(4, 4));
+    $this->assertFalse($evaluator->isVerticalStartRow(6, 4));
+  }
+
+  public function testCreateMovementArray() {
+    $board = new Board(4);
+    $evaluator = new Evaluator($board->cells);
+
+    $this->assertTrue($evaluator->createMovementArray(1, 4) == [-4]);
+    $this->assertTrue($evaluator->createMovementArray(14, 4) == [4]);
   }
 }

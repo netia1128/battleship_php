@@ -94,6 +94,10 @@ class Evaluator {
   //   user_coordinate_letters(coordinates).uniq.count == 1 || user_coordinate_numbers(coordinates).uniq.count == 1
   // end
 
+  public function isVerticalStartRow($pivot_point_index, $board_dimension) {
+    return($pivot_point_index % $board_dimension == 0);
+  }
+
   // def vertical_start_row?(pivot_point_index, board_dimension)
   //   pivot_point_index % board_dimension == 0
   // end
@@ -106,12 +110,8 @@ class Evaluator {
     return($pivot_point_index / $board_dimension < 1);
   }
 
-  // def horizontal_start_row?(pivot_point_index, board_dimension)
-  //   pivot_point_index / board_dimension < 1
-  // end
-
   public function isHorizontalEndRow($pivot_point_index, $board_dimension) {
-    return($pivot_point_index / $board_dimension == $board_dimension - 1);
+    return(floor($pivot_point_index / $board_dimension) == $board_dimension - 1);
   }
 
   public function createMovementArray($pivot_point_index, $board_dimension) {
@@ -120,19 +120,15 @@ class Evaluator {
     if($this->isHorizontalStartRow($pivot_point_index, $board_dimension)) {
       array_push($movement_array, ($board_dimension * -1));
     }
+    if($this->isHorizontalEndRow($pivot_point_index, $board_dimension)) {
+      array_push($movement_array, $board_dimension);
+    }
 
     return $movement_array;
   }
 
   // def create_movement_array(pivot_point_index, board_dimension)
-  //   movement_array = []
-  //   # require 'pry'; binding.pry
-  //   if !horizontal_start_row?(pivot_point_index, board_dimension)
-  //     movement_array. << board_dimension * - 1
-  //   end
-  //   if !horizontal_end_row?(pivot_point_index, board_dimension)
-  //     movement_array. << board_dimension
-  //   end
+
   //   if !vertical_start_row?(pivot_point_index, board_dimension)
   //     movement_array << -1
   //   end
