@@ -162,6 +162,14 @@ class EvaluatorTest extends TestCase
     $this->assertFalse($evaluator->isVerticalStartRow(6, 4));
   }
 
+  public function testIsVerticalEndRow() {
+    $board = new Board(2);
+    $evaluator = new Evaluator($board->cells);
+
+    $this->assertTrue($evaluator->isVerticalEndRow(3, 4));
+    $this->assertFalse($evaluator->isVerticalEndRow(5, 4));
+  }
+
   public function testCreateMovementArray() {
     $board = new Board(4);
     $evaluator = new Evaluator($board->cells);

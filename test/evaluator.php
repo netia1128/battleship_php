@@ -98,9 +98,9 @@ class Evaluator {
     return($pivot_point_index % $board_dimension == 0);
   }
 
-  // def vertical_start_row?(pivot_point_index, board_dimension)
-  //   pivot_point_index % board_dimension == 0
-  // end
+  public function isVerticalEndRow($pivot_point_index, $board_dimension) {
+    return($pivot_point_index % $board_dimension == $board_dimension - 1);
+  }
 
   // def vertical_end_row?(pivot_point_index, board_dimension)
   //   pivot_point_index % board_dimension == board_dimension - 1
