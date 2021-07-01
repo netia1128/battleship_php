@@ -37,10 +37,13 @@ class PlayerTest extends TestCase {
   }
 
   // public function testAttemptAutoShipPlacement() {
-  //   $player = new Player(4);
+  //   $player = new Player(3);
   //   $ship = $player->ships[0];
 
-  //   $this->assertTrue($player->attemptAutoShipPlacement($ship));
+  //   // var_dump($ship->length);
+  //   // var_dump($player->attemptAutoShipPlacement($ship));
+
+  //   $this->assertTrue(is_a($player->attemptAutoShipPlacement($ship), 'Array'));
   // }
 
   public function testSetDirection() {
@@ -61,5 +64,20 @@ class PlayerTest extends TestCase {
     
     $this->assertTrue($player->updateProposedCoordinate(0) == 'A1');
     $this->assertTrue($player->updateProposedCoordinate(4) == 'B1');
+  }
+
+  public function testFireUpon() {
+    $player = new Player(2);
+
+    $cell_status = $player->board->cells['A1']->status;
+
+    $this->assertTrue($cell_status === '.');
+
+    $player->fireUpon('A1');
+
+    $cell_status = $player->board->cells['A1']->status;
+
+    $this->assertTrue($cell_status === 'M');
+    $this->assertFalse($player->fireUpon('A1'));
   }
 }

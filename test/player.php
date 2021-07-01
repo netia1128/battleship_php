@@ -18,43 +18,34 @@ class Player {
   }
 
   public function attemptAutoShipPlacement($ship) {
+    // THIS IS THE STOPPING POINT
+    // CANT FIGURE OUT FIRST WHILE LOOP
     $pivot_point = $this->setRandomPivotPoint();
     $pivot_point_index = $this->setPivotPointIndex($pivot_point);
     $movement_array = $this->evaluator->createMovementArray($pivot_point_index, $this->board_dimension);
     $wip_array = [$pivot_point];
-    while (!$this->board->place($wip_array, $ship) && in_array(null, $wip_array)) {
+    var_dump(!$this->board->place($wip_array, $ship));
+    // var_dump(in_array(null, $wip_array));
+    $count = 0;
+    // while($this->board->place($wip_array, $ship)) {
+    while($count = 0) {
+      $count += 1;
       $direction = $this->setDirection($movement_array);
       $proposed_coordinate = $pivot_point;
       $proposed_coordinate_index = $pivot_point_index;
       $wip_array = [$proposed_coordinate];
+      echo("HGALIHFLHFKHFDKSFKSHJDFSJKFHJ");
       while(count($wip_array) != $ship->length) {
         $proposed_coordinate_index = $this->updateProposedCoordinateIndex($proposed_coordinate_index, $direction);
         $proposed_coordinate = $this->updateProposedCoordinate($proposed_coordinate_index);
-        //         wip_array << proposed_coordinate
+        array_push($wip_array, $proposed_coordinate);
       }
+      unset($movement_array[array_search($direction, $movement_array)]);
     }
-}
-
-//   def attempt_auto_ship_placement(ship)
-//     pivot_point = set_random_pivot_point
-//     pivot_point_index = set_pivot_point_index(pivot_point)
-//     movement_array = @evaluator.create_movement_array(pivot_point_index, @board_dimension)
-//     wip_array = [pivot_point]
-//     until board.place(wip_array, ship) && wip_array.include?(nil) == false
-//       direction = set_direction(movement_array)
-//       proposed_coordinate = pivot_point
-//       proposed_coordinate_index = pivot_point_index
-//       wip_array = [proposed_coordinate]
-//       until wip_array.count == ship.length do
-//         # require 'pry'; binding.pry
-//         proposed_coordinate_index = update_proposed_coordinate_index(proposed_coordinate_index, direction)
-//         proposed_coordinate = update_proposed_coordinate(proposed_coordinate_index)
-//         wip_array << proposed_coordinate
-//       end
-//       movement_array.delete(direction)
-//     end
-//     wip_array
-//   end
+    var_dump($wip_array);
+    var_dump($count);
+    return $wip_array;
+  }
 
 //   def auto_ship_placement
 //     ships.each do |ship|
@@ -66,10 +57,21 @@ class Player {
 //     hit_cells_arr = @board.make_hit_cells_arr
 //     if difficulty == "HARD" && hit_cells_arr.count > 0
 //         smart_shot(hit_cells_arr)
-//     else
+//$     else
 //         random_shot
 //     end
 //   end
+
+public function fireUpon($shot_coordinate) {
+  if($this->board->is_valid_coordinate($shot_coordinate)) {
+    if(!$this->board->cells[$shot_coordinate]->is_fired_upon()){
+      $this->board->cells[$shot_coordinate]->fire_upon();
+    } else {
+      return false;
+    }
+    return false;
+  }
+}
 
 //   def fire_upon(shot_coordinate)
 //     if @board.valid_coordinate?(shot_coordinate)
@@ -83,11 +85,13 @@ class Player {
 //     end
 //   end
 
-//   def random_shot
+// public function randomShot() {
+//   $this->last_shot_cooridinate = $this->shots_available[array_rand($this->shots_available)];
+
 //     @last_shot_coordinate = @shots_available.sample
 //     fire_upon(@last_shot_coordinate)
 //     @shots_available.delete @last_shot_coordinate
-//   end
+// }
 
 public function setDirection($movement_array) {
   $movement_array[array_rand($movement_array)];
@@ -133,19 +137,14 @@ public function setRandomPivotPoint() {
 //     @shots_available.delete(proposed_coordinate)
 //   end
 
-    public function updateProposedCoordinateIndex($proposed_coordinate_index, $direction) {
-      return($proposed_coordinate_index += $direction);
-    }
+  public function updateProposedCoordinateIndex($proposed_coordinate_index, $direction) {
+    return($proposed_coordinate_index += $direction);
+  }
 
-    public function updateProposedCoordinate($proposed_coordinate_index) {
-      $cells = $this->board->cells;
-      return(array_keys($cells)[$proposed_coordinate_index]);
-    }
-
-//   def update_proposed_coordinate(proposed_coordinate_index)
-//     proposed_coordinate = @board.make_board_array[proposed_coordinate_index]
-//   end
-// end
+  public function updateProposedCoordinate($proposed_coordinate_index) {
+    $cells = $this->board->cells;
+    return(array_keys($cells)[$proposed_coordinate_index]);
+  }
 }
 
 ?>
