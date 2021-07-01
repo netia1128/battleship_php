@@ -17,11 +17,24 @@ class Player {
     $this->last_shot_coordinate = '';
   }
 
-  // public function attemptAutoShipPlacement($ship) {
-  //   $pivot_point = setRandomPivotPoint();
-  //   $pivot_point_index = setPivotPointIndex($pivot_point);
-  //   $movement_array = $this->evaluator->createMovementArray($pivot_point_index, $this-board_dimension)
-  }
+  public function attemptAutoShipPlacement($ship) {
+    $pivot_point = $this->setRandomPivotPoint();
+    $pivot_point_index = $this->setPivotPointIndex($pivot_point);
+    $movement_array = $this->evaluator->createMovementArray($pivot_point_index, $this->board_dimension);
+    $wip_array = [$pivot_point];
+    while (!$this->board->place($wip_array, $ship) && in_array(null, $wip_array)) {
+      $direction = $this->setDirection($movement_array);
+      $proposed_coordinate = $pivot_point;
+      $proposed_coordinate_index = $pivot_point_index;
+      $wip_array = [$proposed_coordinate];
+      while(count($wip_array) != $ship->length) {
+
+        // proposed_coordinate_index = update_proposed_coordinate_index(proposed_coordinate_index, direction)
+        //         proposed_coordinate = update_proposed_coordinate(proposed_coordinate_index)
+        //         wip_array << proposed_coordinate
+      }
+    }
+}
 
 //   def attempt_auto_ship_placement(ship)
 //     pivot_point = set_random_pivot_point
@@ -77,6 +90,9 @@ class Player {
 //     @shots_available.delete @last_shot_coordinate
 //   end
 
+public function setDirection($movement_array) {
+  $movement_array[array_rand($movement_array)];
+}
 //   def set_direction(movement_array)
 //     movement_array.sample
 //   end
@@ -118,9 +134,9 @@ public function setRandomPivotPoint() {
 //     @shots_available.delete(proposed_coordinate)
 //   end
 
-//   def update_proposed_coordinate_index(proposed_coordinate_index, direction)
-//     proposed_coordinate_index += direction
-//   end
+    public function updateProposedCoordinateIndex($proposed_coordinate_index, $direction) {
+      return($proposed_coordinate_index += $direction);
+    }
 
 //   def update_proposed_coordinate(proposed_coordinate_index)
 //     proposed_coordinate = @board.make_board_array[proposed_coordinate_index]

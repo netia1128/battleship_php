@@ -35,4 +35,24 @@ class PlayerTest extends TestCase {
 
     $this->assertTrue($player->setPivotPointIndex('A2') == 1);
   }
+
+  // public function testAttemptAutoShipPlacement() {
+  //   $player = new Player(4);
+  //   $ship = $player->ships[0];
+
+  //   $this->assertTrue($player->attemptAutoShipPlacement($ship));
+  // }
+
+  public function testSetDirection() {
+    $player = new Player(4);
+    $movement_array = [-1, 4];
+
+    $this->assertTrue($player->setDirection($movement_array) == -1 || 4);
+  }
+
+  public function testUpdateProposedCoordinateIndex() {
+    $player = new Player(4);
+    
+    $this->assertTrue($player->updateProposedCoordinateIndex(4, -1) == 3);
+  }
 }
