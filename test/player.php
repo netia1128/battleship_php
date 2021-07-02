@@ -118,30 +118,7 @@ class Player {
     $this->last_shot_coordinate = $proposed_coordinate;
     unset($this->shots_available[array_search($proposed_coordinate, $this->shots_available)]);
   }
-//   def smart_shot(hit_cells_arr)
-//     cells = @board.make_board_array
-//     pivot_point = hit_cells_arr[0]
-//     pivot_point_index = set_pivot_point_index(pivot_point)
-//     movement_array = @evaluator.create_movement_array(pivot_point_index, @board_dimension)
-//     direction = set_direction(movement_array)
-//     proposed_coordinate = cells[pivot_point_index + direction]
-//     until fire_upon(proposed_coordinate)
-//       movement_array.delete(direction)
-//       direction = set_direction(movement_array)
-//       if direction == nil
-//         pivot_point = hit_cells_arr[1]
-//         pivot_point_index = set_pivot_point_index(pivot_point)
-//         movement_array = @evaluator.create_movement_array(pivot_point_index, @board_dimension)
-//         direction = set_direction(movement_array)
-//       end
-//       proposed_coordinate_index = update_proposed_coordinate_index(pivot_point_index, direction)
-//       proposed_coordinate = update_proposed_coordinate(proposed_coordinate_index)
-//     end
-//     fire_upon(proposed_coordinate)
-//     @last_shot_coordinate = proposed_coordinate
-//     @shots_available.delete(proposed_coordinate)
-//   end
-
+  
   public function updateProposedCoordinateIndex($proposed_coordinate_index, $direction) {
     $new_proposed_coordinate_index = $proposed_coordinate_index += $direction;
     if($new_proposed_coordinate_index > -1 && $new_proposed_coordinate_index < count($this->board->cells)) {
