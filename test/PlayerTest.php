@@ -20,7 +20,6 @@ class PlayerTest extends TestCase {
     $this->assertTrue(is_a($player->evaluator, 'Evaluator'));
     $this->assertTrue(count($player->ships) == 3);
     $this->assertTrue(is_a($player->ships[0], 'Ship'));
-    $this->assertTrue($player->last_shot_coordinate == '');
   }
 
   public function testSetRandomPivotPoint() {
@@ -116,12 +115,23 @@ class PlayerTest extends TestCase {
   }
 
   public function testAutoShotSelection() {
-    $player = new Player(1);
+    $player = new Player(4);
     
     $player->autoShotSelection();
 
-    $this->assertTrue(count($player->shots_available) === 0);
+    $this->assertTrue(count($player->shots_available) === 15);
+
+    $player->autoShotSelection("HARD");
+    
+    $this->assertTrue(count($player->shots_available) === 14);
+    
+    $player->board->cells['A1']->status = 'H';
+    $player->autoShotSelection("HARD");
+    
+    $cell_a2_status = $player->board->cells['A2']->status;
+    $cell_b1_status = $player->board->cells['B1']->status;
+
+    $this->assertTrue(count($player->shots_available) === 13);
+    $this->assertTrue($cell_a2_status || $cell_b1_status === 'M');
   }
-
-
 }
