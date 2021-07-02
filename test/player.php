@@ -45,12 +45,14 @@ class Player {
     }
   }
 
-//   def auto_ship_placement
-//     ships.each do |ship|
-//       board.place(attempt_auto_ship_placement(ship), ship)
-//     end
-//   end
-
+  public function autoShotSelection($difficulty = "EASY") {
+    $hit_cells_arr = $this->board->make_hit_cells_arr();
+    if($difficulty === "HARD" && count($hit_cells_arr) > 0) {
+      $this->smart_shot($hit_cells_arr);
+    } else {
+      $this->randomShot();
+    }
+  }
 //   def auto_shot_selection(difficulty = "EASY")
 //     hit_cells_arr = @board.make_hit_cells_arr
 //     if difficulty == "HARD" && hit_cells_arr.count > 0
@@ -60,45 +62,46 @@ class Player {
 //     end
 //   end
 
-public function fireUpon($shot_coordinate) {
-  if($this->board->is_valid_coordinate($shot_coordinate)) {
-    if(!$this->board->cells[$shot_coordinate]->is_fired_upon()){
-      $this->board->cells[$shot_coordinate]->fire_upon();
-    } else {
+  public function fireUpon($shot_coordinate) {
+    if($this->board->is_valid_coordinate($shot_coordinate)) {
+      $cell = $this->board->cells[$shot_coordinate];
+      if(!$this->board->cells[$shot_coordinate]->is_fired_upon()) {
+        $cell->fire_upon();
+      } else {
+        return false;
+      }
       return false;
     }
-    return false;
   }
-}
 
-public function randomShot() {
-  $this->last_shot_cooridinate = $this->shots_available[array_rand($this->shots_available)];
-  $this->fireUpon($this->last_shot_coordinate);
-  unset($this->shots_available[array_search($this->last_shot_coordinate, $this->shots_available)]);
-}
-
-public function setDirection($movement_array) {
-  if(empty($movement_array)) {
-    return false;
-  } else {
-    $random_array_position = array_rand($movement_array, 1);
-    $direction = $movement_array[$random_array_position];
-    return $direction;
+  public function randomShot() {
+    $this->last_shot_cooridinate = $this->shots_available[array_rand($this->shots_available)];
+    $this->fireUpon($this->last_shot_coordinate);
+    unset($this->shots_available[array_search($this->last_shot_coordinate, $this->shots_available)]);
   }
-}
 
-public function setPivotPointIndex($pivot_point) {
-  $cells = $this->board->cells;
-  return array_search($pivot_point, array_keys($cells));
-}
+  public function setDirection($movement_array) {
+    if(empty($movement_array)) {
+      return false;
+    } else {
+      $random_array_position = array_rand($movement_array, 1);
+      $direction = $movement_array[$random_array_position];
+      return $direction;
+    }
+  }
 
-public function setRandomPivotPoint() {
-  $pivot_point = $this->shots_available[array_rand($this->shots_available)];
-  while($this->evaluator->coordinates_empty([$pivot_point], $this->board->cells) == false) {
+  public function setPivotPointIndex($pivot_point) {
+    $cells = $this->board->cells;
+    return array_search($pivot_point, array_keys($cells));
+  }
+
+  public function setRandomPivotPoint() {
     $pivot_point = $this->shots_available[array_rand($this->shots_available)];
+    while($this->evaluator->coordinates_empty([$pivot_point], $this->board->cells) == false) {
+      $pivot_point = $this->shots_available[array_rand($this->shots_available)];
+    }
+    return $pivot_point;
   }
-  return $pivot_point;
-}
 
 //   def smart_shot(hit_cells_arr)
 //     cells = @board.make_board_array

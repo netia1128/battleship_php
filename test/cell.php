@@ -28,13 +28,12 @@ class Cell {
   }
 
   public function fire_upon() {
-    $ship = $this->ship;
     if($this->is_fired_upon() == true) {
       return false;
     }
     if($this->status == ".") {
       $this->status = "M";
-    } elseif($this->status == "S" && $ship->health > 1) {
+    } elseif($this->status == "S" && $this->ship->health > 1) {
       $ship->hit();
       $this->status = "H";
     } else {

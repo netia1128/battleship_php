@@ -114,4 +114,14 @@ class PlayerTest extends TestCase {
 
     $this->assertTrue($cells_with_ships === 6);
   }
+
+  public function testAutoShotSelection() {
+    $player = new Player(1);
+    
+    $player->autoShotSelection();
+
+    $this->assertTrue(count($player->shots_available) === 0);
+  }
+
+
 }
