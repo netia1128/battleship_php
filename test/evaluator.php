@@ -109,16 +109,16 @@ class Evaluator {
   public function createMovementArray($pivot_point_index, $board_dimension) {
     $movement_array = [];
     
-    if($this->isHorizontalStartRow($pivot_point_index, $board_dimension)) {
+    if(!$this->isHorizontalStartRow($pivot_point_index, $board_dimension)) {
       array_push($movement_array, ($board_dimension * -1));
     }
-    if($this->isHorizontalEndRow($pivot_point_index, $board_dimension)) {
+    if(!$this->isHorizontalEndRow($pivot_point_index, $board_dimension)) {
       array_push($movement_array, $board_dimension);
     }
-    if($this->isVerticalStartRow($pivot_point_index, $board_dimension)) {
+    if(!$this->isVerticalStartRow($pivot_point_index, $board_dimension)) {
       array_push($movement_array, -1);
     }
-    if($this->isVerticalEndRow($pivot_point_index, $board_dimension)) {
+    if(!$this->isVerticalEndRow($pivot_point_index, $board_dimension)) {
       array_push($movement_array, 1);
     }
 

@@ -18,32 +18,27 @@ class Player {
   }
 
   public function attemptAutoShipPlacement($ship) {
-    // THIS IS THE STOPPING POINT
-    // CANT FIGURE OUT FIRST WHILE LOOP
     $pivot_point = $this->setRandomPivotPoint();
     $pivot_point_index = $this->setPivotPointIndex($pivot_point);
     $movement_array = $this->evaluator->createMovementArray($pivot_point_index, $this->board_dimension);
-    $wip_array = [$pivot_point];
-    var_dump(!$this->board->place($wip_array, $ship));
-    // var_dump(in_array(null, $wip_array));
+    $wip_array = [];
     $count = 0;
-    // while($this->board->place($wip_array, $ship)) {
-    while($count = 0) {
-      $count += 1;
+    echo "pp is";
+    var_dump($pivot_point);
+    while((!$this->board->place($wip_array, $ship) || in_array(null, $wip_array) && $count < 5)) {
       $direction = $this->setDirection($movement_array);
       $proposed_coordinate = $pivot_point;
       $proposed_coordinate_index = $pivot_point_index;
-      $wip_array = [$proposed_coordinate];
-      echo("HGALIHFLHFKHFDKSFKSHJDFSJKFHJ");
-      while(count($wip_array) != $ship->length) {
-        $proposed_coordinate_index = $this->updateProposedCoordinateIndex($proposed_coordinate_index, $direction);
-        $proposed_coordinate = $this->updateProposedCoordinate($proposed_coordinate_index);
-        array_push($wip_array, $proposed_coordinate);
-      }
+      array_push($wip_array, $proposed_coordinate);
+      // while(count($wip_array) != $ship->length) {
+      //   $proposed_coordinate_index = $this->updateProposedCoordinateIndex($proposed_coordinate_index, $direction);
+      //   $proposed_coordinate = $this->updateProposedCoordinate($proposed_coordinate_index);
+      //   array_push($wip_array, $proposed_coordinate);
+      // }
       unset($movement_array[array_search($direction, $movement_array)]);
+      $count += 1;
     }
-    var_dump($wip_array);
-    var_dump($count);
+    var_dump(count($wip_array));
     return $wip_array;
   }
 
@@ -80,11 +75,12 @@ public function randomShot() {
 }
 
 public function setDirection($movement_array) {
-  $movement_array[array_rand($movement_array)];
+  $random_array_position = rand(0, $this->board_dimension);
+  var_dump($movement_array);
+  var_dump($random_array_position);
+  $direction = $movement_array[1];
+  return $direction;
 }
-//   def set_direction(movement_array)
-//     movement_array.sample
-//   end
 
 public function setPivotPointIndex($pivot_point) {
   $cells = $this->board->cells;
@@ -124,12 +120,24 @@ public function setRandomPivotPoint() {
 //   end
 
   public function updateProposedCoordinateIndex($proposed_coordinate_index, $direction) {
-    return($proposed_coordinate_index += $direction);
+    $new_proposed_coordinate_index = $proposed_coordinate_index += $direction;
+    if($new_proposed_coordinate_index > -1 && $new_proposed_coordinate_index < count($this->board->cells)) {
+      r_dump($new_proposed_coordinate_index);
+      return($new_proposed_coordinate_index);
+    } else {
+      return null;
+    }
   }
 
   public function updateProposedCoordinate($proposed_coordinate_index) {
-    $cells = $this->board->cells;
-    return(array_keys($cells)[$proposed_coordinate_index]);
+    if($proposed_coordinate_index >= 0 && is_int($proposed_coordinate_index)) {
+      $cells = $this->board->cells;
+      $cell_coordinates = array_keys($cells);
+      $new_coordinate = array_keys($cells)[$proposed_coordinate_index];
+      return $new_coordinate;
+    } else {
+      return null;
+    }
   }
 }
 

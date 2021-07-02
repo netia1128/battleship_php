@@ -49,6 +49,7 @@ class Board {
     foreach($coordinates as $coordinate) {
       $this->cells[$coordinate]->place_ship($ship);
     }
+    return true;
   }
 
   public function is_valid_coordinate($coordinate) {
