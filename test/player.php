@@ -22,23 +22,22 @@ class Player {
     $pivot_point_index = $this->setPivotPointIndex($pivot_point);
     $movement_array = $this->evaluator->createMovementArray($pivot_point_index, $this->board_dimension);
     $wip_array = [];
-    $count = 0;
-    echo "pp is";
-    var_dump($pivot_point);
-    while((!$this->board->place($wip_array, $ship) || in_array(null, $wip_array) && $count < 5)) {
+    do {
       $direction = $this->setDirection($movement_array);
       $proposed_coordinate = $pivot_point;
       $proposed_coordinate_index = $pivot_point_index;
+      $wip_array = [];
       array_push($wip_array, $proposed_coordinate);
-      // while(count($wip_array) != $ship->length) {
-      //   $proposed_coordinate_index = $this->updateProposedCoordinateIndex($proposed_coordinate_index, $direction);
-      //   $proposed_coordinate = $this->updateProposedCoordinate($proposed_coordinate_index);
-      //   array_push($wip_array, $proposed_coordinate);
-      // }
+      while(count($wip_array) != $ship->length) {
+        $proposed_coordinate_index = $this->updateProposedCoordinateIndex($proposed_coordinate_index, $direction);
+        $proposed_coordinate = $this->updateProposedCoordinate($proposed_coordinate_index);
+        array_push($wip_array, $proposed_coordinate);
+      }
       unset($movement_array[array_search($direction, $movement_array)]);
-      $count += 1;
-    }
-    var_dump(count($wip_array));
+    }  while(!$this->board->place($wip_array, $ship));
+    
+    $this->board->place($wip_array, $ship);
+
     return $wip_array;
   }
 
@@ -75,11 +74,13 @@ public function randomShot() {
 }
 
 public function setDirection($movement_array) {
-  $random_array_position = rand(0, $this->board_dimension);
-  var_dump($movement_array);
-  var_dump($random_array_position);
-  $direction = $movement_array[1];
-  return $direction;
+  if(empty($movement_array)) {
+    return false;
+  } else {
+    $random_array_position = array_rand($movement_array, 1);
+    $direction = $movement_array[$random_array_position];
+    return $direction;
+  }
 }
 
 public function setPivotPointIndex($pivot_point) {
@@ -122,7 +123,6 @@ public function setRandomPivotPoint() {
   public function updateProposedCoordinateIndex($proposed_coordinate_index, $direction) {
     $new_proposed_coordinate_index = $proposed_coordinate_index += $direction;
     if($new_proposed_coordinate_index > -1 && $new_proposed_coordinate_index < count($this->board->cells)) {
-      r_dump($new_proposed_coordinate_index);
       return($new_proposed_coordinate_index);
     } else {
       return null;
