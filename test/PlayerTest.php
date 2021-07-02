@@ -124,14 +124,17 @@ class PlayerTest extends TestCase {
     $player->autoShotSelection("HARD");
     
     $this->assertTrue(count($player->shots_available) === 14);
-    
+  }
+
+  public function testSmartShot() {
+    $player = new Player(4);
     $player->board->cells['A1']->status = 'H';
     $player->autoShotSelection("HARD");
     
     $cell_a2_status = $player->board->cells['A2']->status;
     $cell_b1_status = $player->board->cells['B1']->status;
 
-    $this->assertTrue(count($player->shots_available) === 13);
+    $this->assertTrue(count($player->shots_available) === 15);
     $this->assertTrue($cell_a2_status || $cell_b1_status === 'M');
   }
 }
