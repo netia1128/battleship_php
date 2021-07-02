@@ -98,4 +98,20 @@ class PlayerTest extends TestCase {
 
     $this->assertTrue($player->shots_available === []);
   }
+
+  public function testAutoShipPlacement() {
+    $player = new Player(4);
+    $cells = $player->board->cells;
+    $cells_with_ships = 0;
+
+    $player->autoShipPlacement();
+
+    foreach($cells as $cell) {
+      if($cell->status === 'S') {
+        $cells_with_ships += 1;
+      }
+    }
+
+    $this->assertTrue($cells_with_ships === 6);
+  }
 }

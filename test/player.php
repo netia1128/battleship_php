@@ -36,9 +36,13 @@ class Player {
       unset($movement_array[array_search($direction, $movement_array)]);
     }  while(!$this->board->place($wip_array, $ship));
     
-    $this->board->place($wip_array, $ship);
-
     return $wip_array;
+  }
+
+  public function autoShipPlacement() {
+    foreach($this->ships as $ship) {
+      $this->attemptAutoShipPlacement($ship);
+    }
   }
 
 //   def auto_ship_placement
