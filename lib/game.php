@@ -1,16 +1,19 @@
 <?php 
 
-// ini_set("include_path", "/home/netia/projects/battleship_php/app");
-// include 'player';
-// require_once(realpath(dirname(__FILE__) . '/player'));
-require_once('/home/netia/projects/battleship_php/lib/statement.php');
+require('/home/netia/projects/battleship_php/lib/statement.php');
+require('/home/netia/projects/battleship_php/lib/player.php');
 
 class Game 
 {
+
+  private $statement;
+  private $player;
+  private $computron;
+
     public function __construct() 
     {
-    //   $this->player = '';
-    //   $this->computron = '';
+      $this->player = '';
+      $this->computron = '';
     //   $this->board_dimension;
       $this->statement = new Statement;
     //   $this->difficulty_level = '';
@@ -25,7 +28,7 @@ class Game
       if($input === "P") {
         $this->introductions();
       } elseif($input === "Q") {
-        $this->statement->print_to_terminal($this->quit_game_statement());
+        $this->statement->print_to_terminal($this->statement->quit_game());
       } else {
         $this->statement->print_to_terminal($this->main_menu());
       }
@@ -34,64 +37,61 @@ class Game
     public function introductions() 
     {
       system('clear');
-      $this->statement->print_to_terminal($this->statement->ask_name);
-      $this->statement->get_name();
+      $this->statement->print_to_terminal($this->statement->ask_name());
+      $player = $this->statement->get_name();
       system('clear');
       $this->statement->print_to_terminal($this->statement->introduction());
-      $this->get_difficulty_level;
+      $this->get_difficulty_level();
     }
 
-//   def introductions
-//     system 'clear'
-//     @statement.print_to_terminal(@statement.ask_name)
-//     @statement.get_name
-//     system 'clear'
-//     @statement.print_to_terminal(@statement.introduction)
-//     get_difficulty_level
-//   end
+    public function get_difficulty_level() 
+    {
+      $this->statement->print_to_terminal($this->statement->ask_difficulty_level());
+      $difficulty_level = $this->statement->get_user_input();
+      $this->difficulty_level_evaluation($difficulty_level);
+      $this->get_board_dimensions();
+    }
 
-//   def get_difficulty_level
-//     @statement.print_to_terminal(@statement.ask_difficulty_level)
-//     @difficulty_level = @statement.get_user_input.upcase
-//     difficulty_level_evaluation
-//     get_board_dimensions
-//   end
+    public function difficulty_level_evaluation($difficulty_level) 
+    {
+      if($difficulty_level != "HARD" && $difficulty_level != "EASY") {
+        system('clear');
+        $this->statement->print_to_terminal($this->statement->difficulty_level_error());
+        $difficulty_level = $this->statement->get_user_input();
+        $this->difficulty_level_evaluation($difficulty_level);
+      }
+    }
+  public function get_board_dimensions() 
+    {
+      system('clear');
+      $this->statement->print_to_terminal($this->statement->ask_board_dimensions());
+      $board_dimension = $this->statement->get_user_input();
+      $this->board_dimension_evaluation($board_dimension);
+    }
 
-//   def difficulty_level_evaluation
-//     until @difficulty_level == "HARD" || @difficulty_level == "EASY"
-//       system 'clear'
-//       @statement.print_to_terminal(@statement.difficulty_level_error)
-//       @difficulty_level = @statement.get_user_input.upcase
-//     end
-//   end
+    public function board_dimension_evaluation($board_dimension)
+    {
+      if($board_dimension < 4 || $board_dimension > 9) {
+        $this->statement->print_to_terminal($this->statement->board_dimension_error());
+        $board_dimension = $this->statement->get_user_input();
+        $this->board_dimension_evaluation($board_dimension);
+      }
+      $this->initialize_game($board_dimension);
+    }
 
-//   def get_board_dimensions
-//     system 'clear'
-//     @statement.print_to_terminal(@statement.ask_board_dimension)
-//     board_dimension = @statement.get_user_input.to_i
-//     board_dimension_evaluation(board_dimension)
-//   end
+  public function initialize_game($board_dimension)
+  {
+    $this->player = new Player($board_dimension);
+    $this->computron = new Player($board_dimension);
+    $this->ship_placement_explanation();
+  }
 
-//   def board_dimension_evaluation(board_dimension)
-//     until ((4..9).to_a.include? board_dimension)
-//       system 'clear'
-//       @statement.print_to_terminal(@statement.board_dimension_error)
-//       board_dimension = @statement.get_user_input.to_i
-//     end
-//     initialize_game(board_dimension)
-//   end
-
-//   def initialize_game(board_dimension)
-//     @player = Player.new(board_dimension)
-//     @computron = Player.new(board_dimension)
-//     ship_placement_explanation
-//   end
-
-//   def ship_placement_explanation
-//     system 'clear'
-//     @statement.print_to_terminal(@statement.ship_placement_explanation(@player))
-//     ship_placement
-//   end
+  public function ship_placement_explanation() 
+  {
+    system('clear');
+    $this->statement->print_to_terminal($this->statement->ship_placement_explanation($this->player));
+    // ship_placement
+  }
 
 //   def ship_placement
 //     @computron.auto_ship_placement

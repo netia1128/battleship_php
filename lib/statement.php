@@ -4,27 +4,28 @@
 
 class Statement
 {
+  public $name;
 
-  public function __construct() 
+  public function ask_board_dimensions() 
   {
-    $this->input = '';
-    $this->name = '';
+    return("To start, we will create a square board to play with.\n" .
+    "Your board can be anywhere between 4 and 9 cells wide.\n" .
+    "How many cells would you like in each row? \n");
   }
 
 //   def ask_board_dimension
-//     "To start, we will create a square board to play with.\n" .
-//     "Your board can be anywhere between 4 and 9 cells wide.\n" .
-//     "How many cells would you like in each row?"
+
 //   end
 
   public function ask_name()
   {
-    return("What is your name? \n");
+    return "What is your name? \n";
   }
 
-//   def ask_difficulty_level
-//     "What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'?"
-//   end
+  public function ask_difficulty_level()
+  {
+    return "What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'? \n";
+  }
 
   public function battleship_graphic() 
   { return (
@@ -41,10 +42,11 @@ class Statement
     " \n");
   }
 
-//   def board_dimension_error
-//     "Sorry #{@name} that is not a valid board size.\n" .
-//     "Please choose a board size between 4 and 9 cells wide."
-//   end
+  public function board_dimension_error()
+  {
+    return ("Sorry " . $this->name . ", that is not a valid board size.\n" .
+    "Please choose a board size between 4 and 9 cells wide. \n");
+  }
 
 public function computron_won() 
 {
@@ -57,39 +59,40 @@ public function computron_won()
 //     "Computron won!"
 //   end
 
-//   def difficulty_level_error
-//      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" .
-//      " \n" .
-//      "I'm sorry #{@name}, that is not a valid option. \n" .
-//      "Please select either 'easy' or 'hard'. \n" .
-//      " \n" .
-//      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
-//   end
+  public function difficulty_level_error() 
+  {
+     return("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" .
+     " \n" .
+     "I'm sorry " . $this->name .", that is not a valid option. \n" .
+     "Please select either 'easy' or 'hard'. \n" .
+     " \n" .
+     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n");
+  }
 
 //   def game_over
 //     "GAMEOVER!"
 //   end
 
-public function get_name() 
-{
-  $handle = fopen ("php://stdin", "r");
-  $input = fgets ($handle);
-  return($input);
-}
+  public function get_name() 
+  {
+    $handle = fopen ("php://stdin", "r");
+    $input = fgets ($handle);
+    $this->name = trim($input);
+    return($this->name);
+  }
 
-public function get_user_input() 
-{
-  $handle = fopen ("php://stdin", "r");
-  $input = fgets ($handle);
-  $formatted_input = trim(strtoupper($input));
-  return($formatted_input);
-}
-
+  public function get_user_input() 
+  {
+    $handle = fopen ("php://stdin", "r");
+    $input = fgets ($handle);
+    $formatted_input = trim(strtoupper($input));
+    return($formatted_input);
+  }
 
   public function introduction() 
   {
-    return("Hi #{@name}. \n" .
-    "My name is Computron. I will be your opponent.");
+    return("Hi " . $this->name . ". \n" .
+    "My name is Computron. I will be your opponent. ");
   }
 
   public function main_menu()
@@ -103,9 +106,10 @@ public function get_user_input()
     echo $statement;
   }
 
-//   def quit_game
-//     "Thanks for playing"
-//   end
+  public function quit_game() 
+  {
+    return("Thanks for playing \n");
+  }
 
 //   def place_specific_ship(ship)
 //     "We are now placing the #{ship.name}.\n" .
@@ -135,27 +139,28 @@ public function get_user_input()
 //     "Please provide #{ship.length} coordinate(s):"
 //   end
 
-//   def ship_placement_explanation(player)
-//     "Great! Now let's place your ships.\n" .
-//     " \n" .
-//     "We each have three ships.\n" .
-//     "    -The Cruiser, which is three cells long.\n" .
-//     "    -The Submarine, which is two cells long.\n" .
-//     "    -The Tug Boat, which is one cell.\n" .
-//     " \n" .
-//     "I have already placed my ships. Now it's your turn. \n" .
-//     " \n" .
-//     "Let's start. Here is your board: \n" .
-//     " \n" .
-//     player.board.render(true) .
-//     " \n" .
-//     "You will choose cells to put the ships in.\n" .
-//     "Please provide the coordinate of each cell" .
-//     " with just a space in between.\n" .
-//     "For example: \n" .
-//     "   A1 A2 A3\n" .
-//     " \n"
-//   end
+public function ship_placement_explanation($player)
+{
+    return("Great! Now let's place your ships.\n" .
+    " \n" .
+    "We each have three ships.\n" .
+    "    -The Cruiser, which is three cells long.\n" .
+    "    -The Submarine, which is two cells long.\n" .
+    "    -The Tug Boat, which is one cell.\n" .
+    " \n" .
+    "I have already placed my ships. Now it's your turn. \n" .
+    " \n" .
+    "Let's start. Here is your board: \n" .
+    " \n" .
+    $player->board->render(true) .
+    " \n" .
+    "You will choose cells to put the ships in.\n" .
+    "Please provide the coordinate of each cell" .
+    " with just a space in between.\n" .
+    "For example: \n" .
+    "   A1 A2 A3\n" .
+    " \n");
+}
 
 //   def ship_placement_success(ship, player)
 //     "Great job #{@name}, you've placed your #{ship.name}!\n" .
