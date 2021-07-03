@@ -83,12 +83,15 @@ class StatementTest extends TestCase
   //     "My name is Computron. I will be your opponent.")
   //   end
   // end
-  // describe '#main_menu' do
-  //   it 'contains the main menu statement' do
-  //     expect(@statement.main_menu).to eq("Welcome to Battleship! \n" .
-  //     "Enter P to play or Q to quit")
-  //   end
-  // end
+
+  public function test_main_menu() 
+  {
+    $statement = new Statement;
+    
+    $this->assertTrue($statement->main_menu() === "Welcome to Battleship! \n" .
+      "Enter P to play or Q to quit");
+  }
+
   // describe '#place_specific_ship' do
   //   it 'contains the place specific ship statement' do
   //     ship = Ship.new("Tug Boat", 1)

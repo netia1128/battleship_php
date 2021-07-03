@@ -9,34 +9,37 @@ class Game
 {
     public function __construct() 
     {
-//       $this->player = '';
-//       $this->computron = '';
-//       $this->board_dimension;
+    //   $this->player = '';
+    //   $this->computron = '';
+    //   $this->board_dimension;
       $this->statement = new Statement;
-//       $this->difficulty_level = '';
+    //   $this->difficulty_level = '';
     }
 
     public function main_menu()
     {
-    // system('clear');
-    $this->statement->printToTerminal($this->statement->battleshipGraphic());
+      system('clear');
+      $this->statement->print_to_terminal($this->statement->battleship_graphic());
+      $this->statement->print_to_terminal($this->statement->main_menu());
+      $input = $this->statement->get_user_input();
+      if($input === "P") {
+        $this->introductions();
+      } elseif($input === "Q") {
+        $this->statement->print_to_terminal($this->quit_game_statement());
+      } else {
+        $this->statement->print_to_terminal($this->main_menu());
+      }
     }
-// }
 
-
-//   def main_menu
-//     system 'clear'
-//     @statement.print_to_terminal(@statement.battleship_graphic)
-//     @statement.print_to_terminal(@statement.main_menu)
-//     @statement.get_user_input
-//     if @statement.input == "P"
-//       introductions
-//     elsif @statement.input == "Q"
-//       @statement.quit_game_statement
-//     else
-//       print_to_terminal(@statement.main_menu)
-//     end
-//   end
+    public function introductions() 
+    {
+      system('clear');
+      $this->statement->print_to_terminal($this->statement->ask_name);
+      $this->statement->get_name();
+      system('clear');
+      $this->statement->print_to_terminal($this->statement->introduction());
+      $this->get_difficulty_level;
+    }
 
 //   def introductions
 //     system 'clear'
