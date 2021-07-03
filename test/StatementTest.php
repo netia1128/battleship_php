@@ -1,6 +1,8 @@
 <?php 
 
 require('/home/netia/projects/battleship_php/lib/statement.php');
+require('/home/netia/projects/battleship_php/lib/ship.php');
+require('/home/netia/projects/battleship_php/lib/player.php');
 
 use PHPUnit\Framework\TestCase;
 
@@ -11,26 +13,19 @@ class StatementTest extends TestCase
   protected function setUp(): void
   {
       $this->statement = new Statement;
+      $this->statement->name = "Netia";
   }
 
-  public function testConstruct(): void
-  {
-    $this->assertTrue(is_a($this->statement, 'Statement'));
-    $this->assertTrue($this->statement->input === '');
-    $this->assertTrue($this->statement->name === '');
-  }
-
-  // describe '#ask_board_dimension' do
-  //   it 'contains the ask board board_dimension statement' do
-  //     expect(@statement.ask_board_dimension).to eq("To start, we will create a square board to play with.\n" .
-  //     "Your board can be anywhere between 4 and 9 cells wide.\n" .
-  //     "How many cells would you like in each row?")
-  //   end
-  // end
+ public function test_ask_board_dimensions() 
+ {
+  $this->assertTrue($this->statement->ask_board_dimensions() ==="To start, we will create a square board to play with.\n" .
+      "Your board can be anywhere between 4 and 9 cells wide.\n" .
+      "How many cells would you like in each row? \n");
+ }
 
   public function ask_difficulty_level() 
   {
-    $this->assertTrue($this->statement->ask_difficulty_level() ==="What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'?");
+    $this->assertTrue($statement->ask_difficulty_level() ==="What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'? \n");
   }
 
   public function test_ask_name()
@@ -53,12 +48,13 @@ class StatementTest extends TestCase
     " \n" .
     " \n");
   }
-  // describe '#board_dimension_error' do
-  //   it 'contains the board_dimension_error statement' do
-  //     expect(@statement.board_dimension_error).to eq("Sorry #{@name} that is not a valid board size.\n" .
-  //     "Please choose a board size between 4 and 9 cells wide.")
-  //   end
-  // end
+
+  public function test_board_dimension_error()
+  {
+    $this->assertTrue($this->statement->board_dimension_error() === 
+      "Sorry Netia, that is not a valid board size.\n" .
+      "Please choose a board size between 4 and 9 cells wide. \n");
+  }
   // public function test_computron_won() 
   // {
   //   $statement = new Statement;
@@ -76,7 +72,7 @@ class StatementTest extends TestCase
   {
     $this->assertTrue($this->statement->difficulty_level_error() === "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" .
            " \n" .
-           "I'm sorry #{@name}, that is not a valid option. \n" .
+           "I'm sorry Netia, that is not a valid option. \n" .
            "Please select either 'easy' or 'hard'. \n" .
            " \n" .
            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n");
@@ -88,8 +84,8 @@ class StatementTest extends TestCase
   // end
   public function test_introduction() 
   {
-    $this->assertTrue($this->statement->introduction("Netia") === "Hi Netia. \n" .
-    "My name is Computron. I will be your opponent.");
+    $this->assertTrue($this->statement->introduction() === "Hi Netia. \n" .
+    "My name is Computron. I will be your opponent. ");
   }
 
   public function test_main_menu() 
@@ -98,72 +94,68 @@ class StatementTest extends TestCase
       "Enter P to play or Q to quit \n");
   }
 
-  // describe '#place_specific_ship' do
-  //   it 'contains the place specific ship statement' do
-  //     ship = Ship.new("Tug Boat", 1)
-  //     expect(@statement.place_specific_ship(ship)).to eq("We are now placing the #{ship.name}.\n" .
-  //     "The #{ship.name} is #{ship.length} cell(s) long.\n" .
-  //     "Please provide #{ship.length} coordinate(s):")
-  //   end
-  // end
+  public function test_place_specific_ship()
+  {
+    $ship = new Ship("Tug Boat", 1);
+    $this->assertTrue($this->statement->place_specific_ship($ship) === "We are now placing the Tug Boat.\n" .
+        "The Tug Boat is 1 cell(s) long.\n" .
+        "Please provide 1 coordinate(s): \n");
+  }
 
   public function test_quit_game()
   {
     $this->assertTrue($this->statement->quit_game() === "Thanks for playing \n");
   }
-  // describe '#quit_game' do
-  //   it 'contains the quit game statement' do
-  //     expect(@statement.quit_game).to eq("Thanks for playing")
-  //   end
-  // end
-  // describe '#ship_placement_error' do
-  //   ship = Ship.new("Tug Boat", 1)
-  //   player = Player.new(4)
-  //   it 'contains the ship placement error statement' do
-  //     expect(@statement.ship_placement_error(player, ship)).to eq(   "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" .
-  //       " \n" .
-  //       "Sorry #{@name}, your placement is not valid.\n" .
-  //       "For a valid placement each of the following must be true:\n" .
-  //       "- Please provide a number of coordinates equal to the ship length\n" .
-  //       "- The coordinates must be consecuitive\n" .
-  //       "- The coordinates must run horizontally or vertically\n" .
-  //       "- You cannot already have a ship in a proposed coordinate\n" .
-  //       "- You must enter each coordinate with just a space in between.\n" .
-  //       "      For example:\n" .
-  //       "      A1 A2 A3 \n" .
-  //       " \n" .
-  //        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" .
-  //       " \n" .
-  //       "Please try again. Here is your board: \n" .
-  //       " \n" .
-  //       player.board.render(true) .
-  //       " \n" .
-  //       "Please provide #{ship.length} coordinate(s):")
-  //   end
-  // end
-  // describe '#ship_placement_explanation' do
-  //   it 'contains the ship placement explanation statement' do
-  //     expect(@statement.ship_placement_explanation(@player)).to eq("Great! Now let's place your ships.\n" .
-  //     " \n" .
-  //     "We each have three ships.\n" .
-  //     "    -The Cruiser, which is three cells long.\n" .
-  //     "    -The Submarine, which is two cells long.\n" .
-  //     "    -The Tug Boat, which is one cell.\n" .
-  //     " \n" .
-  //     "I have already placed my ships. Now it's your turn. \n" .
-  //     " \n" .
-  //     "Let's start. Here is your board: \n" .
-  //     " \n" .
-  //     @player.board.render(true) .
-  //     " \n" .
-  //     "You will choose cells to put the ships in.\n" .
-  //     "Please provide the coordinate of each cell" .
-  //     " with just a space in between.\n" .
-  //     "For example: \n" .
-  //     "   A1 A2 A3\n" .
-  //     " \n")
-  //   end
-  // end
+
+  public function test_ship_placement_error()
+  {
+    $ship = new Ship("Tug Boat", 1);
+    $player = new Player(4);
+
+    $this->assertTrue($this->statement->ship_placement_error($player, $ship) === "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" .
+        " \n" .
+        "Sorry #{@name}, your placement is not valid.\n" .
+        "For a valid placement each of the following must be true:\n" .
+        "- Please provide a number of coordinates equal to the ship length\n" .
+        "- The coordinates must be consecuitive\n" .
+        "- The coordinates must run horizontally or vertically\n" .
+        "- You cannot already have a ship in a proposed coordinate\n" .
+        "- You must enter each coordinate with just a space in between.\n" .
+        "      For example:\n" .
+        "      A1 A2 A3 \n" .
+        " \n" .
+         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" .
+        " \n" .
+        "Please try again. Here is your board: \n" .
+        " \n" .
+        $player->board->render(true) .
+        " \n" .
+        "Please provide #{ship.length} coordinate(s): \n");
+  }
+
+  public function ship_placement_explanation()
+  {
+    $player = new Player(4);
+    $this->assertTrue($this->statement->hip_placement_explanation($player) === "Great! Now let's place your ships.\n" .
+      " \n" .
+      "We each have three ships.\n" .
+      "    -The Cruiser, which is three cells long.\n" .
+      "    -The Submarine, which is two cells long.\n" .
+      "    -The Tug Boat, which is one cell.\n" .
+      " \n" .
+      "I have already placed my ships. Now it's your turn. \n" .
+      " \n" .
+      "Let's start. Here is your board: \n" .
+      " \n" .
+      $player.board.render(true) .
+      " \n" .
+      "You will choose cells to put the ships in.\n" .
+      "Please provide the coordinate of each cell" .
+      " with just a space in between.\n" .
+      "For example: \n" .
+      "   A1 A2 A3\n" .
+      " \n");
+  }
   // describe '#ship_placement_success' do
   //   it 'contains the ship placement success statement' do
   //     ship = Ship.new("Tug Boat", 1)
