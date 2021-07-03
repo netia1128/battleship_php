@@ -27,11 +27,12 @@ class StatementTest extends TestCase
   //     "How many cells would you like in each row?")
   //   end
   // end
-  // describe '#ask_difficulty_level' do
-  //   it 'contains the ask ask difficulty level statement' do
-  //     expect(@statement.ask_difficulty_level).to eq("What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'?")
-  //   end
-  // end
+
+  public function ask_difficulty_level() 
+  {
+    $this->assertTrue($this->statement->ask_difficulty_level() ==="What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'?");
+  }
+
   public function test_ask_name()
   {
     $this->assertTrue($this->statement->ask_name() === "What is your name? \n");
@@ -71,16 +72,15 @@ class StatementTest extends TestCase
   //       "Computron won!")
   //   end
   // end
-  // describe '#difficulty_level_error' do
-  //   it 'contains the difficulty level error statement' do
-  //     expect(@statement.difficulty_level_error).to eq(     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" .
-  //          " \n" .
-  //          "I'm sorry #{@name}, that is not a valid option. \n" .
-  //          "Please select either 'easy' or 'hard'. \n" .
-  //          " \n" .
-  //          "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n")
-  //   end
-  // end
+  public function test_difficulty_level_error()
+  {
+    $this->assertTrue($this->statement->difficulty_level_error() === "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" .
+           " \n" .
+           "I'm sorry #{@name}, that is not a valid option. \n" .
+           "Please select either 'easy' or 'hard'. \n" .
+           " \n" .
+           "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n");
+  }
   // describe '#game_over' do
   //   it 'contains the board_dimension_error statement' do
   //     expect(@statement.game_over).to eq("GAMEOVER!")
