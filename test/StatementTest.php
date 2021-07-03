@@ -6,14 +6,18 @@ use PHPUnit\Framework\TestCase;
 
 class StatementTest extends TestCase
 {
+  private $statement;
 
-  public function testConstruct() 
+  protected function setUp(): void
   {
-    $statement = new Statement;
+      $this->statement = new Statement;
+  }
 
-    $this->assertTrue(is_a($statement, 'Statement'));
-    $this->assertTrue($statement->input === '');
-    $this->assertTrue($statement->name === '');
+  public function testConstruct(): void
+  {
+    $this->assertTrue(is_a($this->statement, 'Statement'));
+    $this->assertTrue($this->statement->input === '');
+    $this->assertTrue($this->statement->name === '');
   }
 
   // describe '#ask_board_dimension' do
@@ -28,34 +32,39 @@ class StatementTest extends TestCase
   //     expect(@statement.ask_difficulty_level).to eq("What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'?")
   //   end
   // end
-  // describe '#ask_name' do
-  //   it 'contains the ask name statement' do
-  //     expect(@statement.ask_name).to eq("What is your name?")
-  //   end
-  // end
-    public function test_battleshilp_graphic() 
-    {
-      $statement = new Statement;
-      
-      $this->assertTrue($statement->battleship_graphic() ===
-      " _____     _____   _______  _______  _        _______  _______  _     _  _______  _____   \n" .
-      "|  __  \\  /  _  \\ |__   __||__   __|| |      |  _____||  ____ || |   | ||__   __||  __  \\ \n" .
-      "| |  \\  ||  / \\  |   | |      | |   | |      | |      | |   |_|| |   | |   | |   | |  \\  |\n" .
-      "| |__/  || |___| |   | |      | |   | |      | |___   | |_____ | |___| |   | |   | |__/  |\n" .
-      "|      / |  ___  |   | |      | |   | |      |  ___|  |______ ||  ___  |   | |   |  ____/ \n" .
-      "|  __  \\ | |   | |   | |      | |   | |      | |            | || |   | |   | |   | |      \n" .
-      "| |  \\  || |   | |   | |      | |   | |      | |       _    | || |   | |   | |   | |      \n" .
-      "| |__/  || |   | |   | |      | |   | |_____ | |_____ | |___| || |   | | __| |__ | |      \n" .
-      "|______/ |_|   |_|   |_|      |_|   |_______||_______||_______||_|   |_||_______||_|      " .
-      " \n" .
-      " \n");
-    }
+  public function test_ask_name()
+  {
+    $this->assertTrue($this->statement->ask_name() === "What is your name? \n");
+  }
+
+  public function test_battleshilp_graphic() 
+  {
+    $this->assertTrue($this->statement->battleship_graphic() ===
+    " _____     _____   _______  _______  _        _______  _______  _     _  _______  _____   \n" .
+    "|  __  \\  /  _  \\ |__   __||__   __|| |      |  _____||  ____ || |   | ||__   __||  __  \\ \n" .
+    "| |  \\  ||  / \\  |   | |      | |   | |      | |      | |   |_|| |   | |   | |   | |  \\  |\n" .
+    "| |__/  || |___| |   | |      | |   | |      | |___   | |_____ | |___| |   | |   | |__/  |\n" .
+    "|      / |  ___  |   | |      | |   | |      |  ___|  |______ ||  ___  |   | |   |  ____/ \n" .
+    "|  __  \\ | |   | |   | |      | |   | |      | |            | || |   | |   | |   | |      \n" .
+    "| |  \\  || |   | |   | |      | |   | |      | |       _    | || |   | |   | |   | |      \n" .
+    "| |__/  || |   | |   | |      | |   | |_____ | |_____ | |___| || |   | | __| |__ | |      \n" .
+    "|______/ |_|   |_|   |_|      |_|   |_______||_______||_______||_|   |_||_______||_|      " .
+    " \n" .
+    " \n");
+  }
   // describe '#board_dimension_error' do
   //   it 'contains the board_dimension_error statement' do
   //     expect(@statement.board_dimension_error).to eq("Sorry #{@name} that is not a valid board size.\n" .
   //     "Please choose a board size between 4 and 9 cells wide.")
   //   end
   // end
+  // public function test_computron_won() 
+  // {
+  //   $statement = new Statement;
+    
+  //   $this->assertTrue($statement->battleship_graphic() ===
+
+  // }
   // describe '#computron_won' do
   //   it 'contains the board_dimension_error statement' do
   //     expect(@statement.computron_won).to eq(  "Computron sunk all of your ships! \n" .
@@ -77,19 +86,16 @@ class StatementTest extends TestCase
   //     expect(@statement.game_over).to eq("GAMEOVER!")
   //   end
   // end
-  // describe '#introduction' do
-  //   it 'contains the introduction statement' do
-  //     expect(@statement.introduction).to eq("Hi #{@statement.name}. \n" .
-  //     "My name is Computron. I will be your opponent.")
-  //   end
-  // end
+  public function test_introduction() 
+  {
+    $this->assertTrue($this->statement->introduction("Netia") === "Hi Netia. \n" .
+    "My name is Computron. I will be your opponent.");
+  }
 
   public function test_main_menu() 
   {
-    $statement = new Statement;
-    
-    $this->assertTrue($statement->main_menu() === "Welcome to Battleship! \n" .
-      "Enter P to play or Q to quit");
+    $this->assertTrue($this->statement->main_menu() === "Welcome to Battleship! \n" .
+      "Enter P to play or Q to quit \n");
   }
 
   // describe '#place_specific_ship' do
@@ -100,6 +106,11 @@ class StatementTest extends TestCase
   //     "Please provide #{ship.length} coordinate(s):")
   //   end
   // end
+
+  public function test_quit_game()
+  {
+    $this->assertTrue($this->statement->quit_game() === "Thanks for playing \n");
+  }
   // describe '#quit_game' do
   //   it 'contains the quit game statement' do
   //     expect(@statement.quit_game).to eq("Thanks for playing")
