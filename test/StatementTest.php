@@ -23,7 +23,7 @@ class StatementTest extends TestCase
       "How many cells would you like in each row? \n");
  }
 
-  public function ask_difficulty_level() 
+  public function test_ask_difficulty_level() 
   {
     $this->assertTrue($statement->ask_difficulty_level() ==="What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'? \n");
   }
@@ -58,8 +58,8 @@ class StatementTest extends TestCase
 
   public function test_computron_won() 
   {
-    $this->assertTrue($this->statement->computron_won() === "Computron sunk all of your ships! \n:" .
-    "Computron won!");
+    $this->assertTrue($this->statement->computron_won() === "Computron sunk all of your ships! \n" .
+    "Computron won! \n");
   }
 
   public function test_difficulty_level_error()
@@ -74,7 +74,7 @@ class StatementTest extends TestCase
 
   public function test_game_over()
   {
-    $this->assertTrue($this->statement->game_over() === "GAMEOVER!");
+    $this->assertTrue($this->statement->game_over() === "GAMEOVER! \n");
   }
 
   public function test_introduction() 
@@ -125,7 +125,7 @@ class StatementTest extends TestCase
         " \n" .
         $player->board->render(true) .
         " \n" .
-        "Please provide #{ship.length} coordinate(s): \n");
+        "Please provide 1 coordinate(s): \n");
   }
 
   public function test_ship_placement_explanation()
@@ -151,6 +151,7 @@ class StatementTest extends TestCase
       "   A1 A2 A3\n" .
       " \n");
   }
+
   public function test_ship_placement_success()
   {
       $ship = new Ship("Tug Boat", 1);
@@ -233,6 +234,6 @@ class StatementTest extends TestCase
   public function you_won()
   {
     $this->assertTrue($this->statement->you_won() === "You sunk all of Computron's ships! \n" .
-      "You won!");
+      "You won! \n");
   }
 }
