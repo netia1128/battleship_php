@@ -9,14 +9,14 @@ class Game
   private $statement;
   private $player;
   private $computron;
+  private $difficulty_level;
 
     public function __construct() 
     {
       $this->player = '';
       $this->computron = '';
-    //   $this->board_dimension;
       $this->statement = new Statement;
-    //   $this->difficulty_level = '';
+      $this->difficulty_level = '';
     }
 
     public function main_menu()
@@ -47,8 +47,8 @@ class Game
     public function get_difficulty_level() 
     {
       $this->statement->print_to_terminal($this->statement->ask_difficulty_level());
-      $difficulty_level = $this->statement->get_user_input();
-      $this->difficulty_level_evaluation($difficulty_level);
+      $this->difficulty_level = $this->statement->get_user_input();
+      $this->difficulty_level_evaluation($this->difficulty_level);
       $this->get_board_dimensions();
     }
 
@@ -72,6 +72,7 @@ class Game
     public function board_dimension_evaluation($board_dimension)
     {
       if($board_dimension < 4 || $board_dimension > 9) {
+        system('clear');
         $this->statement->print_to_terminal($this->statement->board_dimension_error());
         $board_dimension = $this->statement->get_user_input();
         $this->board_dimension_evaluation($board_dimension);
@@ -85,88 +86,111 @@ class Game
     $this->computron = new Player($board_dimension);
     $this->ship_placement_explanation();
   }
-
   public function ship_placement_explanation() 
   {
     system('clear');
-    $this->statement->print_to_terminal($this->statement->ship_placement_explanation($this->player));
-    // ship_placement
+    $this->ship_placement();
   }
 
-//   def ship_placement
-//     @computron.auto_ship_placement
-//     system 'clear'
-//     @statement.print_to_terminal(@statement.ship_placement_explanation(@player))
-//     @player.ships.each do |ship|
-//       @statement.print_to_terminal(@statement.place_specific_ship(ship))
-//       ship_placement_evaluation(ship)
-//       system 'clear'
-//       @statement.print_to_terminal(@statement.ship_placement_success(ship, @player))
-//     end
-//     take_turn_explanation
-//   end
+  public function ship_placement()
+  {
+    $this->computron->auto_ship_placement;
+    system('clear');
+    $this->statement->print_to_terminal($this->statement->ship_placement_explanation($this->player));
+    $ships = $this->player->ships;
+    foreach($ships as $ship) {
+      $this->statement->print_to_terminal($this->statement->place_specific_ship($ship));
+      $user_coordinates = explode(" ",$this->statement->get_user_input());
+      $this->ship_placement_evaluation($user_coordinates, $ship);
+      system('clear');
+      $this->statement->print_to_terminal($this->statement->ship_placement_success($ship, $this->player));
+    }
+    $this->take_turn_explanation();
+  }
 
-// def ship_placement_evaluation(ship)
-//   user_coordinates = @statement.get_user_input.upcase.split(" ")
-//   until (@player.board.place(user_coordinates, ship))
-//     system 'clear'
-//     @statement.print_to_terminal(@statement.ship_placement_error(player, ship))
-//     user_coordinates = @statement.get_user_input.upcase.split(" ")
-//   end
-//   @player.board.place(user_coordinates, ship)
-// end
+  public function ship_placement_evaluation($user_coordinates, $ship)
+  {
+    while($this->player->board->place($user_coordinates, $ship) == false) {
+      system ('clear');
+      $this->statement->print_to_terminal($this->statement->ship_placement_error($this->player, $ship));
+      $user_coordinates = explode(" ",$this->statement->get_user_input());
+    }
+    $this->player->board->place($user_coordinates, $ship);
+  }
 
-// def take_turn_explanation
-//   system 'clear'
-//   @statement.print_to_terminal(@statement.turn_explanation)
-//   take_turn
-//   end
+  public function take_turn_explanation()
+  {
+    system('clear');
+    $this->statement->print_to_terminal($his->tstatement->turn_explanation());
+    $this->take_turn();
+  }
 
-//   def take_turn
-//     until end_of_game?
-//       @statement.print_to_terminal(@statement.take_turn(@player, @computron))
-//       take_turn_evaluation
-//     end
-//     end_of_game
-//   end
+  public function take_turn()
+  {
+    while(!is_end_of_game()) {
+      $this->statement->print_to_terminal($this->statement->take_turn($this->player, $this->computron));
+      $this->take_turn_evaluation();
+    }
+    $this->end_of_game();
+  }
 
-//   def take_turn_evaluation
-//     shot_coordinate = @statement.get_user_input.upcase
-//     until @computron.fire_upon(shot_coordinate)
-//       system 'clear'
-//       @statement.print_to_terminal(@statement.take_turn_error(@player, @computron))
-//       shot_coordinate = @statement.get_user_input.upcase
-//     end
-//     @computron.fire_upon(shot_coordinate)
-//     @player.auto_shot_selection(@difficulty_level)
-//     system 'clear'
-//     @statement.print_to_terminal(@statement.shot_report(player, computron, shot_coordinate))
-//   end
+  public function take_turn_evaluation()
+  {
+    $shot_coordinate = $this->statement->get_user_input();
+    while($$this->computron->fire_upon($shot_coordinate)) {
+      system('clear');
+      $this->statement->print_to_terminal($this->statement->take_turn_error($this->player, $this->computron));
+      $shot_coordinate = $this->statement->get_user_input();
+    }
+    $computron.fire_upon($shot_coordinate);
+    $player->auto_shot_selection($this->difficulty_level);
+    system('clear');
+    $this->statement->print_to_terminal($this->statement->shot_report($player, $computron, $shot_coordinate));
+  }
 
-//   def end_of_game
-//     system 'clear'
-//      @statement.print_to_terminal(@statement.game_over)
-//      if player_won?
-//        @statement.print_to_terminal(@statement.you_won)
-//      else
-//        @statement.print_to_terminal(@statement.computron_won)
-//      end
-//   end
+  public function end_of_game()
+  {
+    system('clear');
+     $this->statement->print_to_terminal($this->statement->game_over());
+     if(player_won) {
+       $this->statement->print_to_terminal($this->statement->you_won());
+     } else {
+       $this->statement->print_to_terminal($tis->statement->computron_won());
+     }
+  }
 
-//   def end_of_game?
-//     player_won? || computron_won?
-//   end
+  public function is_end_of_game() 
+  {
+    if(player_won() || computron_won()) {
+      return true;
+    }
+  }
 
-//   def player_won?
-//     @computron.ships.all? do |ship|
-//       ship.sunk?
-//     end
-//   end
+  public function player_won() 
+  {
+    $ships = $this->$computron->ships;
+    $count = 0;
+    foreach($ships as $ship) do {
+      if($ship->is_sunk()) {
+        $count += 1;
+      }
+    }
+    if($count === 3) {
+      return true;
+    }
+  }
 
-//   def computron_won?
-//     @player.ships.all? do |ship|
-//       ship.sunk?
-//     end
-//   end
+  public function computron_won() 
+  {
+    $ships = $this->$player->ships;
+    $count = 0;
+    foreach($ships as $ship) do {
+      if($ship->is_sunk()) {
+        $count += 1;
+      }
+    }
+    if($count === 3) {
+      return true;
+    }
+  }
 }
-?>
