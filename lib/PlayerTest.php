@@ -22,25 +22,25 @@ class PlayerTest extends TestCase {
     $this->assertTrue(is_a($player->ships[0], 'Ship'));
   }
 
-  public function testSetRandomPivotPoint() {
+  public function testset_random_pivot_point() {
     $player = new Player(2);
-    $pivot_point = $player->setRandomPivotPoint();
+    $pivot_point = $player->set_random_pivot_point();
 
     $this->assertTrue(in_array($pivot_point, ['A1', 'A2', 'B1', 'B2']));
   }
 
-  public function testSetPivotPointIndex() {
+  public function testset_pivot_point_index() {
     $player = new Player(2);
 
-    $this->assertTrue($player->setPivotPointIndex('A2') == 1);
+    $this->assertTrue($player->set_pivot_point_index('A2') == 1);
   }
 
-  public function testAttemptAutoShipPlacement() {
+  public function test_attempt_auto_ship_placement() {
     $player = new Player(4);
     $ship = $player->ships[0];
 
 
-    $wip_array = $player->attemptAutoShipPlacement($ship);
+    $wip_array = $player->attempt_auto_ship_placement($ship);
 
     $this->assertTrue(count($wip_array) == 3);
 
@@ -53,57 +53,57 @@ class PlayerTest extends TestCase {
     $this->assertTrue($cell3->ship === $ship);
   }
 
-  public function testSetDirection() {
+  public function testset_direction() {
     $player = new Player(4);
     $movement_array = [-1, 4];
 
-    $this->assertTrue($player->setDirection($movement_array) == -1 || 4);
+    $this->assertTrue($player->set_direction($movement_array) == -1 || 4);
   }
 
-  public function testUpdateProposedCoordinateIndex() {
+  public function testupdate_proposed_coordinate_index() {
     $player = new Player(4);
     
-    $this->assertTrue($player->updateProposedCoordinateIndex(4, -1) == 3);
+    $this->assertTrue($player->update_proposed_coordinate_index(4, -1) == 3);
   }
 
-  public function testUpdateProposedCoordinate() {
+  public function testupdate_proposed_coordinate() {
     $player = new Player(4);
 
-    $this->assertTrue($player->updateProposedCoordinate(0) == 'A1');
-    $this->assertTrue($player->updateProposedCoordinate(4) == 'B1');
+    $this->assertTrue($player->update_proposed_coordinate(0) == 'A1');
+    $this->assertTrue($player->update_proposed_coordinate(4) == 'B1');
   }
 
-  public function testFireUpon() {
+  public function test_fire_upon() {
     $player = new Player(2);
 
     $cell_status = $player->board->cells['A1']->status;
     $this->assertTrue($cell_status === '.');
 
 
-    $player->fireUpon('A1');
+    $player->fire_upon('A1');
 
     $cell_status = $player->board->cells['A1']->status;
 
     $this->assertTrue($cell_status === 'M');
-    $this->assertFalse($player->fireUpon('A1'));
+    $this->assertFalse($player->fire_upon('A1'));
   }
 
-  public function testRandomShot() {
+  public function test_random_shot() {
     $player = new Player(1);
 
     $this->assertTrue($player->shots_available === ['A1']);
 
-    $player->randomShot();
+    $player->random_shot();
 
     $this->assertTrue($player->shots_available === []);
   }
 
-  public function testAutoShipPlacement() {
+  public function test_auto_ship_placement() {
     $player = new Player(4);
     $cells = $player->board->cells;
     $cells_with_ships = 0;
 
-    $player->autoShipPlacement();
+    $player->auto_ship_placement();
 
     foreach($cells as $cell) {
       if($cell->status === 'S') {
@@ -114,22 +114,22 @@ class PlayerTest extends TestCase {
     $this->assertTrue($cells_with_ships === 6);
   }
 
-  public function testAutoShotSelection() {
+  public function test_auto_shot_selection() {
     $player = new Player(4);
     
-    $player->autoShotSelection();
+    $player->auto_shot_selection();
 
     $this->assertTrue(count($player->shots_available) === 15);
 
-    $player->autoShotSelection("HARD");
+    $player->auto_shot_selection("HARD");
     
     $this->assertTrue(count($player->shots_available) === 14);
   }
 
-  public function testSmartShot() {
+  public function testsmart_shot() {
     $player = new Player(4);
     $player->board->cells['A1']->status = 'H';
-    $player->autoShotSelection("HARD");
+    $player->auto_shot_selection("HARD");
     
     $cell_a2_status = $player->board->cells['A2']->status;
     $cell_b1_status = $player->board->cells['B1']->status;

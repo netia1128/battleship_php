@@ -44,8 +44,8 @@ class Statement
 
   public function computron_won() 
   {
-    return ("Computron sunk all of your ships! \n:" .
-    "Computron won!");
+    return ("Computron sunk all of your ships! \n" .
+    "Computron won! \n");
   }
 
   public function difficulty_level_error() 
@@ -60,7 +60,7 @@ class Statement
 
   public function game_over()
   {
-    return("GAMEOVER!");
+    return("GAMEOVER! \n");
   }
 
   public function get_name() 
@@ -189,7 +189,7 @@ public function ship_placement_explanation($player)
       "Time for the next turn!" .
       " \n";
 
-    return($first_statement + "\n" + $second_statment + $third_statement);
+    return($first_statement . "\n" . $second_statement . $third_statement);
   }
 
   public function take_turn($player, $computron) 

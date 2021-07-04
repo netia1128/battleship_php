@@ -121,13 +121,13 @@ class Game
   public function take_turn_explanation()
   {
     system('clear');
-    $this->statement->print_to_terminal($his->tstatement->turn_explanation());
+    $this->statement->print_to_terminal($this->statement->turn_explanation());
     $this->take_turn();
   }
 
   public function take_turn()
   {
-    while(!is_end_of_game()) {
+    while(!$this->is_end_of_game()) {
       $this->statement->print_to_terminal($this->statement->take_turn($this->player, $this->computron));
       $this->take_turn_evaluation();
     }
@@ -137,60 +137,55 @@ class Game
   public function take_turn_evaluation()
   {
     $shot_coordinate = $this->statement->get_user_input();
-    while($$this->computron->fire_upon($shot_coordinate)) {
+    while($this->computron->fire_upon($shot_coordinate) === false) {
       system('clear');
       $this->statement->print_to_terminal($this->statement->take_turn_error($this->player, $this->computron));
       $shot_coordinate = $this->statement->get_user_input();
     }
-    $computron.fire_upon($shot_coordinate);
-    $player->auto_shot_selection($this->difficulty_level);
-    system('clear');
-    $this->statement->print_to_terminal($this->statement->shot_report($player, $computron, $shot_coordinate));
+    $this->player->auto_shot_selection($this->difficulty_level);
+    // system('clear');
+    $this->statement->print_to_terminal($this->statement->shot_report($this->player, $this->computron, $shot_coordinate));
   }
 
   public function end_of_game()
   {
     system('clear');
      $this->statement->print_to_terminal($this->statement->game_over());
-     if(player_won) {
+     if($this->player_won()) {
        $this->statement->print_to_terminal($this->statement->you_won());
      } else {
-       $this->statement->print_to_terminal($tis->statement->computron_won());
+       $this->statement->print_to_terminal($this->statement->computron_won());
      }
   }
 
   public function is_end_of_game() 
   {
-    if(player_won() || computron_won()) {
+    if($this->player_won() || $this->computron_won()) {
       return true;
     }
   }
 
   public function player_won() 
   {
-    $ships = $this->$computron->ships;
+    $ships = $this->computron->ships;
     $count = 0;
-    foreach($ships as $ship) do {
+    foreach($ships as $ship) {
       if($ship->is_sunk()) {
         $count += 1;
       }
     }
-    if($count === 3) {
-      return true;
-    }
+    return($count === 3);
   }
 
   public function computron_won() 
   {
-    $ships = $this->$player->ships;
+    $ships = $this->player->ships;
     $count = 0;
-    foreach($ships as $ship) do {
+    foreach($ships as $ship) {
       if($ship->is_sunk()) {
         $count += 1;
       }
     }
-    if($count === 3) {
-      return true;
-    }
+    return($count === 3);
   }
 }

@@ -13,11 +13,11 @@ class Evaluator {
     $coordinate_numbers = $this->user_coordinate_numbers($coordinates);
     $coordinate_letters = $this->user_coordinate_letters($coordinates);
 
-    if($this->isHorizontal($coordinates) == true) {
+    if($this->is_horizontal($coordinates) == true) {
       if((end($coordinate_numbers) - reset($coordinate_numbers)) + 1 == $ship->length) {
         return true;
       }
-    } elseif($this->isVertical($coordinates) == true) {
+    } elseif($this->is_vertical($coordinates) == true) {
       if((ord(end($coordinate_letters)) - ord(reset($coordinate_letters))) + 1 == $ship->length) {
         return true;
       }
@@ -76,49 +76,49 @@ class Evaluator {
     }
   }
 
-  public function isHorizontal($coordinates) {
+  public function is_horizontal($coordinates) {
     $unique_letter_count = count(array_unique($this->user_coordinate_letters($coordinates)));
     return($unique_letter_count == 1);
   }
 
-  public function isVertical($coordinates) {
+  public function is_vertical($coordinates) {
     $unique_number_count = count(array_unique($this->user_coordinate_numbers($coordinates)));
     return($unique_number_count == 1);
   }
 
-  public function isHorizontalOrVertical($coordinates) {
-    return($this->isVertical($coordinates) || $this->isHorizontal($coordinates));
+  public function is_horizontal_or_vertical($coordinates) {
+    return($this->is_vertical($coordinates) || $this->is_horizontal($coordinates));
   }
 
-  public function isVerticalStartRow($pivot_point_index, $board_dimension) {
+  public function is_vertical_start_row($pivot_point_index, $board_dimension) {
     return($pivot_point_index % $board_dimension == 0);
   }
 
-  public function isVerticalEndRow($pivot_point_index, $board_dimension) {
+  public function is_vertical_end_row($pivot_point_index, $board_dimension) {
     return($pivot_point_index % $board_dimension == $board_dimension - 1);
   }
 
-  public function isHorizontalStartRow($pivot_point_index, $board_dimension) {
+  public function is_horizontal_start_row($pivot_point_index, $board_dimension) {
     return($pivot_point_index / $board_dimension < 1);
   }
 
-  public function isHorizontalEndRow($pivot_point_index, $board_dimension) {
+  public function is_horizontal_end_row($pivot_point_index, $board_dimension) {
     return(floor($pivot_point_index / $board_dimension) == $board_dimension - 1);
   }
 
   public function createMovementArray($pivot_point_index, $board_dimension) {
     $movement_array = [];
     
-    if(!$this->isHorizontalStartRow($pivot_point_index, $board_dimension)) {
+    if(!$this->is_horizontal_start_row($pivot_point_index, $board_dimension)) {
       array_push($movement_array, ($board_dimension * -1));
     }
-    if(!$this->isHorizontalEndRow($pivot_point_index, $board_dimension)) {
+    if(!$this->is_horizontal_end_row($pivot_point_index, $board_dimension)) {
       array_push($movement_array, $board_dimension);
     }
-    if(!$this->isVerticalStartRow($pivot_point_index, $board_dimension)) {
+    if(!$this->is_vertical_start_row($pivot_point_index, $board_dimension)) {
       array_push($movement_array, -1);
     }
-    if(!$this->isVerticalEndRow($pivot_point_index, $board_dimension)) {
+    if(!$this->is_vertical_end_row($pivot_point_index, $board_dimension)) {
       array_push($movement_array, 1);
     }
 

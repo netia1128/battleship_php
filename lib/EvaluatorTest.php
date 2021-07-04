@@ -94,30 +94,30 @@ class EvaluatorTest extends TestCase
     $this->assertTrue($expected_number_coordinates2 == $number_coordinates2);
   }
 
-  public function testIsHorizontal() {
+  public function testis_horizontal() {
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
 
     $coordinates1 = ['A1', 'A2'];
     
-    $this->assertTrue($evaluator->isHorizontal($coordinates1));
+    $this->assertTrue($evaluator->is_horizontal($coordinates1));
     
     $coordinates2 = ['A1', 'B1'];
     
-    $this->assertTrue($evaluator->isHorizontal($coordinates2) == null);
+    $this->assertTrue($evaluator->is_horizontal($coordinates2) == null);
   }
 
-  public function testIsVertical() {
+  public function testis_vertical() {
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
 
     $coordinates1 = ['A1', 'A2'];
     
-    $this->assertTrue($evaluator->isVertical($coordinates1) == null);
+    $this->assertTrue($evaluator->is_vertical($coordinates1) == null);
     
     $coordinates2 = ['A1', 'B1'];
     
-    $this->assertTrue($evaluator->isVertical($coordinates2));
+    $this->assertTrue($evaluator->is_vertical($coordinates2));
   }
 
   public function testIsConsecutive() {
@@ -138,36 +138,36 @@ class EvaluatorTest extends TestCase
     $this->assertTrue($evaluator->is_consecutive($coordinates3, $ship));
   }
 
-  public function testIsHorizontalStartRow() {
+  public function testis_horizontal_start_row() {
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
 
-    $this->assertTrue($evaluator->isHorizontalStartRow(0, 2));
-    $this->assertFalse($evaluator->isHorizontalStartRow(2, 2));
+    $this->assertTrue($evaluator->is_horizontal_start_row(0, 2));
+    $this->assertFalse($evaluator->is_horizontal_start_row(2, 2));
   }
 
-  public function testIsHorizontalEndRow() {
+  public function testis_horizontal_end_row() {
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
 
-    $this->assertTrue($evaluator->isHorizontalEndRow(14, 4));
-    $this->assertFalse($evaluator->isHorizontalEndRow(0, 2));
+    $this->assertTrue($evaluator->is_horizontal_end_row(14, 4));
+    $this->assertFalse($evaluator->is_horizontal_end_row(0, 2));
   }
 
-  public function testIsVerticalStartRow() {
+  public function testis_vertical_start_row() {
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
 
-    $this->assertTrue($evaluator->isVerticalStartRow(4, 4));
-    $this->assertFalse($evaluator->isVerticalStartRow(6, 4));
+    $this->assertTrue($evaluator->is_vertical_start_row(4, 4));
+    $this->assertFalse($evaluator->is_vertical_start_row(6, 4));
   }
 
-  public function testIsVerticalEndRow() {
+  public function testis_vertical_end_row() {
     $board = new Board(2);
     $evaluator = new Evaluator($board->cells);
 
-    $this->assertTrue($evaluator->isVerticalEndRow(3, 4));
-    $this->assertFalse($evaluator->isVerticalEndRow(5, 4));
+    $this->assertTrue($evaluator->is_vertical_end_row(3, 4));
+    $this->assertFalse($evaluator->is_vertical_end_row(5, 4));
   }
 
   public function testCreateMovementArray() {
@@ -181,12 +181,12 @@ class EvaluatorTest extends TestCase
     $this->assertTrue($evaluator->createMovementArray(3, 4) == [-4, 1]);
   }
 
-  public function testIsHorizontalOrVertical() {
+  public function testis_horizontal_or_vertical() {
     $board = new Board(4);
     $evaluator = new Evaluator($board->cells);
 
-    $this->assertTrue($evaluator->isHorizontalOrVertical(['A1', 'A2']));
-    $this->assertTrue($evaluator->isHorizontalOrVertical(['A1', 'B1']));
-    $this->assertFalse($evaluator->isHorizontalOrVertical(['A1', 'B2']));
+    $this->assertTrue($evaluator->is_horizontal_or_vertical(['A1', 'A2']));
+    $this->assertTrue($evaluator->is_horizontal_or_vertical(['A1', 'B1']));
+    $this->assertFalse($evaluator->is_horizontal_or_vertical(['A1', 'B2']));
   }
 }

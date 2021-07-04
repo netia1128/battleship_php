@@ -55,7 +55,7 @@ class CellTest extends TestCase {
     $this->assertTrue($cell->is_fired_upon());
   }
 
-  public function testCellFireUpon() {
+  public function test_fire_upon() {
     $cell_1 = new Cell("A4");
     $cell_1->fire_upon();
 
