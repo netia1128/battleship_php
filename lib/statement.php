@@ -254,6 +254,6 @@ public function ship_placement_explanation($player)
   public function you_won()
   {
     return ("You sunk all of Computron's ships! \n" .
-    "You won!");
+    "You won! \n");
   }
 }

@@ -94,7 +94,7 @@ class Game
 
   public function ship_placement()
   {
-    $this->computron->auto_ship_placement;
+    $this->computron->auto_ship_placement();
     system('clear');
     $this->statement->print_to_terminal($this->statement->ship_placement_explanation($this->player));
     $ships = $this->player->ships;
@@ -143,7 +143,7 @@ class Game
       $shot_coordinate = $this->statement->get_user_input();
     }
     $this->player->auto_shot_selection($this->difficulty_level);
-    // system('clear');
+    system('clear');
     $this->statement->print_to_terminal($this->statement->shot_report($this->player, $this->computron, $shot_coordinate));
   }
 
