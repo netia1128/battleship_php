@@ -1,6 +1,6 @@
 <?php 
 
-require('/home/netia/projects/battleship_php/lib/ship.php');
+require('/home/netia/projects/battleship_php/lib/Ship.php');
 
 use PHPUnit\Framework\TestCase;
 
