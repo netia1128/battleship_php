@@ -168,12 +168,12 @@ class EvaluatorTest extends TestCase
   public function test_create_movement_array() 
   {
     $board = new Board(4);
-
-    $this->assertTrue($this->evaluator->create_movement_array(1, 4) == [-4]);
-    $this->assertTrue($this->evaluator->create_movement_array(14, 4) == [4]);
-    $this->assertTrue($this->evaluator->create_movement_array(4, 4) == [-1]);
-    $this->assertTrue($this->evaluator->create_movement_array(7, 4) == [1]);
-    $this->assertTrue($this->evaluator->create_movement_array(3, 4) == [-4, 1]);
+    
+    $this->assertTrue($this->evaluator->create_movement_array(1, 4) == [4, -1, 1]);
+    $this->assertTrue($this->evaluator->create_movement_array(14, 4) == [-4, -1, 1]);
+    $this->assertTrue($this->evaluator->create_movement_array(4, 4) == [-4, 4, 1]);
+    $this->assertTrue($this->evaluator->create_movement_array(7, 4) == [-4, 4, -1]);
+    $this->assertTrue($this->evaluator->create_movement_array(3, 4) == [4, -1]);
   }
 
   public function test_is_horizontal_or_vertical() 
