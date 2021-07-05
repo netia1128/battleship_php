@@ -1,7 +1,7 @@
 <?php 
 
-require('/home/netia/projects/battleship_php/lib/statement.php');
-require('/home/netia/projects/battleship_php/lib/player.php');
+require(__DIR__.'/../lib/Statement.php');
+require(__DIR__.'/../lib/Player.php');
 
 class Game 
 {
