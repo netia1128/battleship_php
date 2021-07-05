@@ -197,7 +197,7 @@ public function ship_placement_explanation($player)
     return(" \n" .
     "=============COMPUTRON BOARD============= \n" .
     " \n" .
-    $computron->board->render() .
+    $computron->board->render(true) .
     " \n" .
     "==============PLAYER BOARD============== \n" .
     " \n" .

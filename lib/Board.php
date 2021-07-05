@@ -1,17 +1,23 @@
 <?php
 
-require_once 'cell.php';
-require_once 'evaluator.php';
+require(__DIR__.'/../lib/Cell.php');
+require_once(__DIR__.'/../lib/Evaluator.php');
 
-class Board {
+class Board 
+{
+  public $board_dimension;
+  public $cells;
+  public $evaluator;
 
-  public function __construct($board_dimension) {
+  public function __construct($board_dimension) 
+  {
     $this->board_dimension = $board_dimension;
     $this->cells = $this->make_board_array();
     $this->evaluator = new Evaluator($this->cells);
   }
 
-  public function make_board_array() {
+  public function make_board_array() 
+  {
     $board_array = array();
     $letters = range('A', 'Z');
     $letter_count = 0;
@@ -28,31 +34,35 @@ class Board {
     return $board_array;
   }
 
-  public function is_valid_placement($coordinates, $ship) {
-    if($this->evaluator->coordinates_match_ship_length($coordinates, $ship) == true &&
+  public function is_valid_placement($coordinates, $ship) 
+  {
+    return($this->evaluator->coordinates_match_ship_length($coordinates, $ship) == true &&
        $this->evaluator->coordinates_empty($coordinates, $this->cells) == true &&
        $this->evaluator->no_duplicate_coordinates($coordinates, $ship) == true &&
-       $this->evaluator->is_consecutive($coordinates, $ship) == true) {
-         return true;
-       }
+       $this->evaluator->is_consecutive($coordinates, $ship) == true);
   }
   
-  public function place($coordinates, $ship) {
+  public function place($coordinates, $ship) 
+  {
     foreach($coordinates as $coordinate) {
       if($this->is_valid_coordinate($coordinate) == false) {
         return false;
       }
     }
+
     if($this->is_valid_placement($coordinates, $ship) == false) {
       return false;
     }
+
     foreach($coordinates as $coordinate) {
       $this->cells[$coordinate]->place_ship($ship);
     }
+  
     return true;
   }
 
-  public function is_valid_coordinate($coordinate) {
+  public function is_valid_coordinate($coordinate) 
+  {
     if($coordinate == null) {
       return false;
     } elseif(in_array($coordinate, array_keys($this->cells))) {
@@ -62,9 +72,11 @@ class Board {
     }
   }
 
-  public function render($show_ships = false) {
+  public function render($show_ships = false) 
+  {
     $string = "  " . $this->top_row() . " \n";
     $cells = $this->cells;
+
     foreach($cells as $key => $value){
       if($key[1] == 1) {
         $string = ($string . $key[0] . " " . $value->render($show_ships) . " ");
@@ -74,22 +86,27 @@ class Board {
         $string = ($string . $value->render($show_ships) . " ");
       }
     }
+
     return $string;
   }
 
-  public function top_row() {
+  public function top_row() 
+  {
     $board_numbers = range(1, $this->board_dimension);
+
     return join(' ', $board_numbers);
   }
 
-  public function make_hit_cells_arr() {
+  public function make_hit_cells_arr() 
+  {
     $hit_cells_arr = [];
+
     foreach($this->cells as $key => $value) {
-      if($value->render() == 'H') {
+      if($value->render() === 'H') {
         array_push($hit_cells_arr, $key);
       }
     }
+
     return $hit_cells_arr;
   }
 }
-?>
