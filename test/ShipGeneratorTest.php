@@ -1,7 +1,7 @@
 <?php 
 
-require('/home/netia/projects/battleship_php/lib/Ship.php');
-require_once('/home/netia/projects/battleship_php/lib/ShipGenerator.php');
+require(__DIR__.'/../lib/Ship.php');
+require_once(__DIR__.'/../lib/ShipGenerator.php');
 
 use PHPUnit\Framework\TestCase;
 

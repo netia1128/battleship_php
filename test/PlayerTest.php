@@ -1,10 +1,10 @@
 <?php 
 
-require('/home/netia/projects/battleship_php/lib/Player.php');
-require_once('/home/netia/projects/battleship_php/lib/ShipGenerator.php');
-require_once('/home/netia/projects/battleship_php/lib/Evaluator.php');
-require_once('/home/netia/projects/battleship_php/lib/Ship.php');
-require_once('/home/netia/projects/battleship_php/lib/Board.php');
+require(__DIR__.'/../lib/Player.php');
+require_once(__DIR__.'/../lib/ShipGenerator.php');
+require_once(__DIR__.'/../lib/Evaluator.php');
+require_once(__DIR__.'/../lib/Ship.php');
+require_once(__DIR__.'/../lib/Board.php');
 
 use PHPUnit\Framework\TestCase;
 

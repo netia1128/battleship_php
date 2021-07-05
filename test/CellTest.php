@@ -1,7 +1,7 @@
 <?php 
 
-require('/home/netia/projects/battleship_php/lib/Ship.php');
-require('/home/netia/projects/battleship_php/lib/Cell.php');
+require(__DIR__.'/../lib/Ship.php');
+require(__DIR__.'/../lib/Cell.php');
 
 use PHPUnit\Framework\TestCase;
 

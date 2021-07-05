@@ -1,8 +1,8 @@
 <?php 
 
-require('/home/netia/projects/battleship_php/lib/Evaluator.php');
-require('/home/netia/projects/battleship_php/lib/Ship.php');
-require('/home/netia/projects/battleship_php/lib/Board.php');
+require(__DIR__.'/../lib/Evaluator.php');
+require(__DIR__.'/../lib/Ship.php');
+require(__DIR__.'/../lib/Board.php');
 
 use PHPUnit\Framework\TestCase;
 
