@@ -1,8 +1,8 @@
 <?php 
 
-require('/home/netia/projects/battleship_php/lib/statement.php');
-require('/home/netia/projects/battleship_php/lib/ship.php');
-require('/home/netia/projects/battleship_php/lib/player.php');
+require('/home/netia/projects/battleship_php/lib/Statement.php');
+require('/home/netia/projects/battleship_php/lib/Ship.php');
+require('/home/netia/projects/battleship_php/lib/Player.php');
 
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ class StatementTest extends TestCase
 
   public function test_ask_difficulty_level() 
   {
-    $this->assertTrue($statement->ask_difficulty_level() ==="What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'? \n");
+    $this->assertTrue($this->statement->ask_difficulty_level() ==="What level of difficulty would you like to play? \n" . "Please select 'hard', or 'easy'? \n");
   }
 
   public function test_ask_name()
