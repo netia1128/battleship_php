@@ -1,13 +1,17 @@
 <?php 
 
-require(__DIR__.'/../lib/Ship.php');
-
+require_once 'ship.php';
 use PHPUnit\Framework\TestCase;
+
 
 class ShipTest extends TestCase
 {
-  public function test_ship_initialization() 
-  {
+
+  public function setUp(): void {
+      $sub = new Ship("Submarine", 1);
+  }
+
+  public function testShipInitialization() {
     $ship = new Ship("Destroyer", 4);
     $name = $ship->name;
     $length = $ship->length;
@@ -20,8 +24,7 @@ class ShipTest extends TestCase
     $this->assertTrue($health == $expected_health);
   }
 
-  public function test_ship_hit() 
-  {
+  public function testShipHit() {
     $ship = new Ship("Destroyer", 4);
     $ship->hit();
     $health = $ship->health;
@@ -29,8 +32,7 @@ class ShipTest extends TestCase
     $this->assertTrue($health == $expected_health);
   }
 
-  public function test_ship_sunk() 
-  {
+  public function testShipSunk() {
     $ship = new Ship("Destroyer", 4);
 
     $this->assertFalse($ship->is_sunk());
@@ -43,3 +45,5 @@ class ShipTest extends TestCase
     $this->assertTrue($ship->is_sunk());
   }
 }
+
+// phpunit ShipTest 

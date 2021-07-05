@@ -34,10 +34,10 @@ class Cell {
     if($this->status == ".") {
       $this->status = "M";
     } elseif($this->status == "S" && $this->ship->health > 1) {
-      $ship->hit();
+      $this->ship->hit();
       $this->status = "H";
     } else {
-      $ship->hit();
+      $this->ship->hit();
       $this->status = "X";
     }
   }

@@ -1,15 +1,14 @@
 <?php 
 
-require(__DIR__.'/../lib/Ship.php');
-require(__DIR__.'/../lib/Cell.php');
+require_once 'cell.php';
+require_once 'ship.php';
 
 use PHPUnit\Framework\TestCase;
 
-class CellTest extends TestCase 
-{
 
-  public function test_cell_initialization() 
-  {
+class CellTest extends TestCase {
+
+  public function testCellInitialization() {
     $cell = new Cell("A4");
     $coordinate = $cell->coordinate;
     $status = $cell->status;
@@ -23,15 +22,13 @@ class CellTest extends TestCase
     $this->assertTrue($ship== $expected_ship);
   }
 
-  public function test_cell_emptiness() 
-  {
+  public function testCellEmptiness() {
     $cell = new Cell("A4");
 
     $this->assertTrue($cell->is_empty());
   }
 
-  public function test_cell_place_ship() 
-  {
+  public function testCellPlaceShip() {
     $cell = new Cell("A4");
     $tug = new Ship("Tug Boat", 1);
     $cell->place_ship($tug);
@@ -46,8 +43,7 @@ class CellTest extends TestCase
     $this->assertTrue($ship== $expected_ship);
   }
 
-  public function test_cell_is_fired_upon() 
-  {
+  public function testCellIsFiredUpon() {
     $cell = new Cell("A4");
 
     $this->assertFalse($cell->is_fired_upon());
@@ -59,8 +55,7 @@ class CellTest extends TestCase
     $this->assertTrue($cell->is_fired_upon());
   }
 
-  public function test_fire_upon() 
-  {
+  public function test_fire_upon() {
     $cell_1 = new Cell("A4");
     $cell_1->fire_upon();
 
@@ -83,8 +78,7 @@ class CellTest extends TestCase
     $this->assertTrue($cell_3->status == 'H');
   }
 
-  public function test_cell_render() 
-  {
+  public function testCellRender() {
     // Verify that an empty cell renders as "."
     $cell_1 = new Cell("A4");
 

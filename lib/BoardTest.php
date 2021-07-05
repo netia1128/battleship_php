@@ -1,23 +1,21 @@
 <?php 
 
-require(__DIR__.'/../lib/Board.php');
-require(__DIR__.'/../lib/Ship.php');
-
+require_once 'board.php';
+require_once 'ship.php';
 use PHPUnit\Framework\TestCase;
+
 
 class BoardTest extends TestCase
 {
 
-  public function test_board_initialization() 
-  {
+  public function testBoardInitialization() {
     $board = new Board(4);
     
     $this->assertTrue($board->board_dimension == 4);
     $this->assertTrue(count($board->cells) == 16);
   }
 
-  public function test_make_board_array() 
-  {
+  public function testMakeBoardArray() {
     $board1 = new Board(2);
     $board1_array = $board1->make_board_array();
     $board1_array_keys = array_keys($board1_array);
@@ -28,8 +26,7 @@ class BoardTest extends TestCase
     $this->assertTrue(is_a($board1_cell1, 'Cell'));
   }
 
-  public function test_is_valid_placement() 
-  {
+  public function testIsValidPlacement() {
     $board = new Board(4);
     $ship = new Ship("Submarine", 2);
     
@@ -55,8 +52,7 @@ class BoardTest extends TestCase
     $this->assertTrue($board->is_valid_placement($coordinates4, $ship) == null);
   }
 
-  public function test_is_valid_coordinate() 
-  {
+  public function testIsValidCoordinate() {
     $board = new Board(4);
     $coordinate1 = 'A1';
     $coordinate2 = 'Z1';
@@ -64,8 +60,7 @@ class BoardTest extends TestCase
     $this->assertTrue($board->is_valid_coordinate($coordinate1));
   }
 
-  public function test_place() 
-  {
+  public function testPlace() {
     $board = new Board(4);
     $ship = new Ship("Submarine", 2);
     $coordinates1 = ['A1', 'A2'];
@@ -80,8 +75,7 @@ class BoardTest extends TestCase
     $this->assertFalse($board->place($coordinates2, $ship));
   }
 
-  public function test_top_row() 
-  {
+  public function testTopRow() {
     $board1 = new Board(2);
     $board2 = new Board(4);
     $board3 = new Board(7);
@@ -91,8 +85,7 @@ class BoardTest extends TestCase
     $this->assertTrue($board3->top_row() == '1 2 3 4 5 6 7');
   }
 
-  public function test_render() 
-  {
+  public function testRender() {
     $board = new Board(4);
     $cruiser = new Ship("Crusier", 3);
     $board->place(["A1", "A3", "A2"], $cruiser);
@@ -120,8 +113,7 @@ class BoardTest extends TestCase
   $this->assertTrue($board->render() == "  1 2 3 4 \nA X X X M \nB . . . . \nC . . . . \nD . . . . \n");
   }
 
-  public function test_make_hit_cells_arr() 
-  {
+  public function testMakeHitCellsArr() {
     $board = new Board(4);
     $cruiser = new Ship("Cruiser", 3);
     $tug = new Ship("Tug Boat", 1);
