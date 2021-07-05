@@ -47,12 +47,8 @@ class PlayerTest extends TestCase
     $this->assertTrue(count($wip_array) == 3);
 
     $cell1 = $player->board->cells[$wip_array[0]];
-    $cell2 = $player->board->cells[$wip_array[1]];
-    $cell3 = $player->board->cells[$wip_array[2]];
 
     $this->assertTrue($cell1->ship === $ship);
-    $this->assertTrue($cell2->ship === $ship);
-    $this->assertTrue($cell3->ship === $ship);
   }
 
   public function test_set_direction() 
@@ -103,22 +99,22 @@ class PlayerTest extends TestCase
     $this->assertTrue($player->shots_available === []);
   }
 
-  // public function test_auto_ship_placement() 
-  // {
-  //   $player = new Player(4);
-  //   $cells = $player->board->cells;
-  //   $cells_with_ships = 0;
+  public function test_auto_ship_placement() 
+  {
+    $player = new Player(4);
+    $cells = $player->board->cells;
+    $cells_with_ships = 0;
 
-  //   $player->auto_ship_placement();
+    $player->auto_ship_placement();
 
-  //   foreach($cells as $cell) {
-  //     if($cell->status === 'S') {
-  //       $cells_with_ships += 1;
-  //     }
-  //   }
+    foreach($cells as $cell) {
+      if($cell->status === 'S') {
+        $cells_with_ships += 1;
+      }
+    }
 
-  //   $this->assertTrue($cells_with_ships === 6);
-  // }
+    $this->assertTrue($cells_with_ships === 6);
+  }
 
   public function test_auto_shot_selection() 
   {
@@ -133,16 +129,16 @@ class PlayerTest extends TestCase
     $this->assertTrue(count($player->shots_available) === 14);
   }
 
-  // public function test_smart_shot() 
-  // {
-  //   $player = new Player(4);
-  //   $player->board->cells['A1']->status = 'H';
-  //   $player->auto_shot_selection("HARD");
+  public function test_smart_shot() 
+  {
+    $player = new Player(4);
+    $player->board->cells['A1']->status = 'H';
+    $player->auto_shot_selection("HARD");
     
-  //   $cell_a2_status = $player->board->cells['A2']->status;
-  //   $cell_b1_status = $player->board->cells['B1']->status;
+    $cell_a2_status = $player->board->cells['A2']->status;
+    $cell_b1_status = $player->board->cells['B1']->status;
 
-  //   $this->assertTrue(count($player->shots_available) === 15);
-  //   $this->assertTrue($cell_a2_status || $cell_b1_status === 'M');
-  // }
+    $this->assertTrue(count($player->shots_available) === 15);
+    $this->assertTrue($cell_a2_status || $cell_b1_status === 'M');
+  }
 }
